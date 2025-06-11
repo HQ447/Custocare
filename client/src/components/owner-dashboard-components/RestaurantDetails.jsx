@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function UpdateRestaurants() {
+function RestaurantDetails() {
   const { id } = useParams();
   const domain = "http://localhost:8000/app";
   const token = localStorage.getItem("token");
   const [restaurant, setRestaurant] = useState(null);
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const fetchRestaurant = async () => {
     try {
@@ -72,6 +73,17 @@ function UpdateRestaurants() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div>
+        <div className="flex gap-3">
+          <button
+            onClick={() => navigate(`/owner-dashboard/updateRestaurant/${id}`)}
+            className="px-2 py-1 rounded-sm bg-amber-500 text-white font-semibold"
+          >
+            Update
+          </button>
+          <button className="px-2 py-1 rounded-sm bg-red-500 text-white font-semibold">
+            Delete
+          </button>
+        </div>
         <h2 className="text-3xl font-bold mb-6">
           🍴 {restaurant.restaurantName}
         </h2>
@@ -120,6 +132,7 @@ function UpdateRestaurants() {
           </p>
         </div>
       </div>
+
       <div>
         {foods.length > 0 && (
           <div className="flex flex-wrap gap-5">
@@ -128,6 +141,19 @@ function UpdateRestaurants() {
                 key={item._id}
                 className="bg-gray-50 p-10 flex flex-col gap-3"
               >
+                <div className="flex gap-3">
+                  <button
+                    onClick={() =>
+                      navigate(`/owner-dashboard/updateFood/${item._id}`)
+                    }
+                    className="px-2 py-1 rounded-sm bg-amber-500 text-white font-semibold"
+                  >
+                    Update
+                  </button>
+                  <button className="px-2 py-1 rounded-sm bg-red-500 text-white font-semibold">
+                    Delete
+                  </button>
+                </div>
                 <img className="h-20 w-20" src={item.img} alt={item.name} />
                 <h1>{item.foodName}</h1>
                 <h1>{item.description}</h1>
@@ -142,4 +168,4 @@ function UpdateRestaurants() {
   );
 }
 
-export default UpdateRestaurants;
+export default RestaurantDetails;

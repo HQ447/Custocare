@@ -142,6 +142,48 @@ const ManageRestaurants = () => {
 
   return (
     <div className=" p-6">
+      {/* All returents */}
+      <div className="p-6 bg-gray-100 min-h-screen">
+        <h1 className="text-2xl font-bold mb-4">Restaurants</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {restaurants.map((restaurant) => (
+            <div
+              key={restaurant._id}
+              className="bg-white p-4 rounded shadow-md"
+            >
+              <img
+                src={restaurant.img || "https://via.placeholder.com/300x200"}
+                alt={restaurant.name}
+                className="w-full h-40 object-cover rounded mb-3"
+              />
+              <h2 className="text-xl font-semibold">
+                {restaurant.restaurantName}
+              </h2>
+              <p className="text-gray-600">{restaurant.description}</p>
+              <p className="text-gray-600">{restaurant.address}</p>
+              <p className="text-sm text-gray-500 mt-1">
+                Cuisine: {restaurant.cuisine || "Not specified"}
+              </p>
+              <div>
+                {restaurant.status == "Pending" ? (
+                  <h1>Waiting For Admin Approval</h1>
+                ) : (
+                  <div className="w-full flex justify-around items-center">
+                    <button
+                      onClick={() => navigate(`detail/${restaurant._id}`)}
+                      className="px-3 py-1 border-md hover:95 transition-all bg-blue-500 text-white"
+                    >
+                      View
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Adding new restaurant */}
       <div className="w-[60%] mx-auto">
         <h2 className="text-2xl font-bold text-center mb-6">
           ➕ Add New Restaurant
@@ -233,48 +275,6 @@ const ManageRestaurants = () => {
             {loading ? "Adding Restautrent..." : "➕ Add Restaurant"}
           </button>
         </form>
-      </div>
-      {/* All returents */}
-      <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-2xl font-bold mb-4">Restaurants</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {restaurants.map((restaurant) => (
-            <div
-              key={restaurant._id}
-              className="bg-white p-4 rounded shadow-md"
-            >
-              <img
-                src={restaurant.img || "https://via.placeholder.com/300x200"}
-                alt={restaurant.name}
-                className="w-full h-40 object-cover rounded mb-3"
-              />
-              <h2 className="text-xl font-semibold">
-                {restaurant.restaurantName}
-              </h2>
-              <p className="text-gray-600">{restaurant.description}</p>
-              <p className="text-gray-600">{restaurant.address}</p>
-              <p className="text-sm text-gray-500 mt-1">
-                Cuisine: {restaurant.cuisine || "Not specified"}
-              </p>
-              <div>
-                {restaurant.status == "Pending" ? (
-                  <h1>Waiting For Admin Approval</h1>
-                ) : (
-                  <div className="w-full flex justify-around items-center">
-                    <button
-                      onClick={() =>
-                        navigate(`update-delete-rest/${restaurant._id}`)
-                      }
-                      className="px-3 py-1 border-md hover:95 transition-all bg-blue-500 text-white"
-                    >
-                      View
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

@@ -12,6 +12,11 @@ import { singleRestaurant } from "../controllers/owner/singleRestaurant.js";
 import foodUploader from "../middlewares/foodUploader.js";
 import { addFood } from "../controllers/owner/addFood.js";
 import { getFoods } from "../controllers/owner/getFoods.js";
+import restaurantUpdator from "../middlewares/restaurantUpdator.js";
+import { updateRestaurant } from "../controllers/owner/updateRestaurant.js";
+import { getFoodItem } from "../controllers/owner/getFoodItem.js";
+import foodUpdator from "../middlewares/foodUpdator.js";
+import { updateFoodItem } from "../controllers/owner/updateFoodItem.js";
 
 const router = express.Router();
 
@@ -29,6 +34,22 @@ router.post(
   addRestaurant
 );
 router.post("/addFood", foodUploader.single("img"), tokenVerifier, addFood);
+
+router.put(
+  "/updateRestaurant/:id",
+  tokenVerifier,
+  restaurantUpdator.single("img"),
+  updateRestaurant
+);
+
+router.put(
+  "/updateFoodItem/:id",
+  tokenVerifier,
+  foodUpdator.single("img"),
+  updateFoodItem
+);
+
+router.get("/getFoodItem/:id", tokenVerifier, getFoodItem);
 
 router.get("/getRestaurant", tokenVerifier, getRestautants);
 router.get("/getFoods/:restaurantId", tokenVerifier, getFoods);

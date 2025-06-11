@@ -12,7 +12,9 @@ import Restaurants from "./components/admin-dashboard-components/Restaurants";
 import ManageUsers from "./components/admin-dashboard-components/ManageUsers";
 import Settings from "./components/admin-dashboard-components/Settings";
 import OrderManagement from "./components/admin-dashboard-components/OrderManagement";
-import UpdateRestaurants from "./components/owner-dashboard-components/UpdateRestaurants";
+import RestaurantDetails from "./components/owner-dashboard-components/RestaurantDetails";
+import UpdateRestaurant from "./components/owner-dashboard-components/UpdateRestaurant";
+import UpdateFood from "./components/owner-dashboard-components/UpdateFood";
 
 function App() {
   return (
@@ -36,10 +38,9 @@ function App() {
             <Route index element={<ManageRestaurants />} />
             <Route path="manageFoods" element={<ManageFoods />} />
             <Route path="manageOrder" element={<ManageOrders />} />
-            <Route
-              path="update-delete-rest/:id"
-              element={<UpdateRestaurants />}
-            />
+            <Route path="detail/:id" element={<RestaurantDetails />} />
+            <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
+            <Route path="updateFood/:id" element={<UpdateFood />} />
           </Route>
         </Routes>
       </BrowserRouter>
