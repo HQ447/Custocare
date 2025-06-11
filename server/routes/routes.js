@@ -17,12 +17,15 @@ import { updateRestaurant } from "../controllers/owner/updateRestaurant.js";
 import { getFoodItem } from "../controllers/owner/getFoodItem.js";
 import foodUpdator from "../middlewares/foodUpdator.js";
 import { updateFoodItem } from "../controllers/owner/updateFoodItem.js";
+import { getNearbyRestaurants } from "../controllers/getNearbyRestaurants.js";
 
 const router = express.Router();
 
 router.get("/test", (req, res) => {
   res.send("everything works fine");
 });
+
+router.get("/nearby", getNearbyRestaurants);
 
 router.post("/register", register);
 router.post("/login", login);
