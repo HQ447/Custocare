@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
+import { useNavigate } from "react-router-dom";
 
 // Fix marker icon issue
 delete L.Icon.Default.prototype._getIconUrl;
@@ -14,6 +15,7 @@ L.Icon.Default.mergeOptions({
 const NearbyRestaurants = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -42,6 +44,13 @@ const NearbyRestaurants = () => {
       console.error("Failed to fetch nearby restaurants:", err);
     }
   };
+
+  function handleClick(id) {
+    const token = localStorage.getItem("token");
+
+    if (!token) return navigate("/login");
+    navigate(`/RestDetail/${id}`);
+  }
 
   return (
     <div className="p-4">
@@ -101,6 +110,13 @@ const NearbyRestaurants = () => {
                 <strong>{rest.restaurantName}</strong>
                 <br />
                 {rest.address}
+                <br />
+                <button
+                  onClick={() => handleClick(rest._id)}
+                  className=" bg-amber-500 text-sm text-white font-semibold rounded-xs px-3 py-1"
+                >
+                  View
+                </button>
               </Popup>
             </Marker>
           ))}
@@ -119,6 +135,12 @@ const NearbyRestaurants = () => {
             <h3 className="text-lg font-semibold">{rest.restaurantName}</h3>
             <h3 className="text-lg font-semibold">{rest.description}</h3>
             <p className="text-sm text-gray-600">{rest.address}</p>
+            <button
+              onClick={() => handleClick(rest._id)}
+              className=" bg-amber-500 text-sm text-white font-semibold rounded-xs px-5 py-1"
+            >
+              View
+            </button>
           </div>
         ))}
       </div>

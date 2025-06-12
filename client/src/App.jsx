@@ -15,13 +15,22 @@ import OrderManagement from "./components/admin-dashboard-components/OrderManage
 import RestaurantDetails from "./components/owner-dashboard-components/RestaurantDetails";
 import UpdateRestaurant from "./components/owner-dashboard-components/UpdateRestaurant";
 import UpdateFood from "./components/owner-dashboard-components/UpdateFood";
+import Header from "./components/home-page-components/Header";
+import NearbyRestaurants from "./components/home-page-components/NearbyRes";
+import Services from "./components/home-page-components/Services";
+import RestaurantDetail from "./components/home-page-components/RestaurantDetail";
 
 function App() {
   return (
     <div className="">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />}>
+            <Route index element={<Header />} />
+            <Route path="Nearby" element={<NearbyRestaurants />} />
+            <Route path="services" element={<Services />} />
+            <Route path="RestDetail/:id" element={<RestaurantDetails />} />
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

@@ -1,15 +1,17 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import NearbyRestaurants from "./NearbyRes";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col">
       <Navbar />
 
-      <NearbyRestaurants />
-      <div className="px-20">this is body</div>
-
+      <div onClick={() => navigate("/Nearby")} className="px-20">
+        Nearby
+      </div>
+      <Outlet />
       <Footer />
     </div>
   );
