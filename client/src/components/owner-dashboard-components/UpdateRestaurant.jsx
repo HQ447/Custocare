@@ -124,25 +124,25 @@ function UpdateRestaurant() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
+    <div className="max-w-2xl w-full mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center">Update Restaurant</h2>
 
       {restaurant ? (
         <form
           onSubmit={handleSubmit}
           encType="multipart/form-data"
-          className="space-y-6"
+          className="space-y-6 w-full"
         >
           {/* Image Preview */}
-          <div className="flex justify-center">
+          <div className="flex  w-full">
             <label
               htmlFor="imgUpload"
-              className="cursor-pointer relative group"
+              className="cursor-pointer relative group w-full"
             >
               <img
                 src={previewImg}
                 alt="Restaurant"
-                className="w-64 h-40 object-cover rounded-md border-2 border-gray-300 shadow-md group-hover:opacity-75 transition"
+                className="w-full h-40 object-cover rounded-md border-2 border-gray-300 shadow-md group-hover:opacity-75 transition"
               />
               <div className="absolute inset-0 bg-black bg-opacity-50 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                 <span className="text-sm">Click to change image</span>

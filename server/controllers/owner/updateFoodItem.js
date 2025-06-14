@@ -11,11 +11,12 @@ export const updateFoodItem = async (req, res) => {
         .json({ success: false, message: "Food item not found" });
     }
 
-    const { foodName, description, oldPrice, newPrice } = req.body;
+    const { foodName, category, description, oldPrice, newPrice } = req.body;
 
     // Update fields if they exist in the request
     if (foodName) existingItem.foodName = foodName;
     if (description) existingItem.description = description;
+    if (category) existingItem.category = category;
     if (oldPrice) existingItem.oldPrice = Number(oldPrice);
     if (newPrice) existingItem.newPrice = Number(newPrice);
 

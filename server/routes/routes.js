@@ -18,6 +18,7 @@ import { getFoodItem } from "../controllers/owner/getFoodItem.js";
 import foodUpdator from "../middlewares/foodUpdator.js";
 import { updateFoodItem } from "../controllers/owner/updateFoodItem.js";
 import { getNearbyRestaurants } from "../controllers/getNearbyRestaurants.js";
+import { getAllFoods } from "../controllers/getAllFoods.js";
 
 const router = express.Router();
 
@@ -53,6 +54,8 @@ router.put(
 );
 
 router.get("/getFoodItem/:id", tokenVerifier, getFoodItem);
+
+router.get("/getAllFoods", tokenVerifier, getAllFoods);
 
 router.get("/getRestaurant", tokenVerifier, getRestautants);
 router.get("/getFoods/:restaurantId", tokenVerifier, getFoods);

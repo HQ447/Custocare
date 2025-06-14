@@ -26,7 +26,6 @@ const Login = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        alert("Login successful!");
         console.log(data);
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role);

@@ -9,6 +9,7 @@ function UpdateFood() {
   const [previewImg, setPreviewImg] = useState(null);
   const [formData, setFormData] = useState({
     foodName: "",
+    category: "",
     description: "",
     oldPrice: "",
     newPrice: "",
@@ -27,6 +28,7 @@ function UpdateFood() {
         setFormData({
           foodName: data.item.foodName || "",
           description: data.item.description || "",
+          category: data.item.category || "",
           oldPrice: data.item.oldPrice || "",
           newPrice: data.item.newPrice || "",
           img: null,
@@ -62,6 +64,7 @@ function UpdateFood() {
     try {
       const updatedForm = new FormData();
       updatedForm.append("foodName", formData.foodName);
+      updatedForm.append("category", formData.category);
       updatedForm.append("description", formData.description);
       updatedForm.append("oldPrice", formData.oldPrice);
       updatedForm.append("newPrice", formData.newPrice);
@@ -128,6 +131,18 @@ function UpdateFood() {
             className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+        <select
+          name="category"
+          value={formData.category}
+          onChange={handleInputChange}
+          className="w-full border px-3 py-2 rounded"
+          required
+        >
+          <option value="">Select Food Category</option>
+
+          <option value="veg">Veg Food</option>
+          <option value="non-veg">Non Veg Food</option>
+        </select>
 
         <div>
           <label className="block font-medium text-gray-700">Description</label>

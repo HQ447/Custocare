@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isTokenExpired } from "../../utils/authUtils";
 import { FaTruckFast } from "react-icons/fa6";
@@ -7,6 +7,8 @@ import { FaLocationDot } from "react-icons/fa6";
 
 function Navbar() {
   const navigate = useNavigate();
+  //const [userLocation, setUserLocation] = useState(null);
+  const [address, setAddress] = useState("");
   const role = localStorage.getItem("role");
   const name = localStorage.getItem("name");
 
@@ -16,16 +18,33 @@ function Navbar() {
   }
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        //setUserLocation([latitude, longitude]);
+
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          );
+          const data = await res.json();
+          setAddress(data.display_name || "Unknown Location");
+        } catch (error) {
+          console.error("Failed to reverse geocode:", error);
+          setAddress("Location not found");
+        }
+      },
+      (err) => {
+        console.error("Geolocation error:", err);
+        setAddress("Location permission denied");
+      }
+    );
+  }, []);
+
+  useEffect(() => {
     const checkTokenExpiry = () => {
       const token = localStorage.getItem("token");
-
-      let expired = false;
-
       if (token && isTokenExpired(token)) {
-        expired = true;
-      }
-
-      if (expired) {
         handleLogout();
         navigate("/");
       }
@@ -36,58 +55,62 @@ function Navbar() {
   }, [navigate]);
 
   return (
-    <div className="flex justify-between px-20 py-5 bg-gray-50">
-      <div className="flex flex-col">
-        <h1 className="text-2xl font-bold"> Custocare</h1>
-        <p className="text-xs text-gray-700 self-end">Pakistan</p>
-      </div>
-      <div className="location flex justify-center items-center">
-        <FaLocationDot className="text-2xl " />
-        <p>Pakistan</p>
-      </div>
-      <div className="flex justify-center items-center gap-2">
-        <h1>{name ? name : "Guest"}</h1>
+    <div className="fixed top-0 w-full z-10 bg-white px-20 py-3 shadow">
+      <div className="flex justify-between ">
+        <div className="flex flex-col">
+          <h1 className="text-2xl font-bold">Custocare</h1>
+          <p className="text-xs text-gray-700 self-end">Pakistan</p>
+        </div>
 
-        {role && (
-          <div>
-            {role == "customer" ? (
-              <div>
+        <div className="location flex items-center gap-2 w-1/3">
+          <FaLocationDot className="text-2xl text-red-500" />
+          <p className="text-sm text-gray-600 truncate">
+            {address || "Fetching location..."}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <h1>{name ? name : "Guest"}</h1>
+
+          {role && (
+            <div>
+              {role === "customer" ? (
                 <FaTruckFast
                   onClick={() => navigate("order")}
                   className="text-2xl cursor-pointer hover:scale-105 transition-all"
                 />
-              </div>
-            ) : role == "owner" ? (
-              <button
-                onClick={() => navigate("/owner-dashboard")}
-                className="bg-violet-600 cursor-pointer  hover:scale-95 transition-all hover:bg-violet-500 px-4 py-2 rounded-md text-white font-semibold"
-              >
-                Owner Dashboard
-              </button>
-            ) : (
-              <button
-                onClick={() => navigate("/admin-dashboard")}
-                className="bg-green-400 cursor-pointer  hover:scale-95 transition-all hover:bg-green-500 px-4 py-2 rounded-md text-white font-semibold"
-              >
-                Admin dashboard
-              </button>
-            )}
-          </div>
-        )}
+              ) : role === "owner" ? (
+                <button
+                  onClick={() => navigate("/owner-dashboard")}
+                  className="bg-violet-600 hover:scale-95 transition-all hover:bg-violet-500 px-4 py-2 rounded-md text-white font-semibold"
+                >
+                  Owner Dashboard
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate("/admin-dashboard")}
+                  className="bg-green-400 hover:scale-95 transition-all hover:bg-green-500 px-4 py-2 rounded-md text-white font-semibold"
+                >
+                  Admin Dashboard
+                </button>
+              )}
+            </div>
+          )}
 
-        {!role ? (
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-amber-400 cursor-pointer  hover:scale-95 transition-all hover:bg-amber-500 px-4 py-2 rounded-md text-white font-semibold"
-          >
-            Login
-          </button>
-        ) : (
-          <FiLogOut
-            onClick={handleLogout}
-            className="font-bold text-2xl text-red-600 hover:scale-110 transition-all cursor-pointer"
-          />
-        )}
+          {!role ? (
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-amber-400 hover:scale-95 transition-all hover:bg-amber-500 px-4 py-2 rounded-md text-white font-semibold"
+            >
+              Login
+            </button>
+          ) : (
+            <FiLogOut
+              onClick={handleLogout}
+              className="text-2xl text-red-600 hover:scale-110 transition-all cursor-pointer"
+            />
+          )}
+        </div>
       </div>
     </div>
   );

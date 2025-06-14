@@ -1,14 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Hero from "./Hero";
+import NearbyRestaurants from "./NearbyRes";
+import Foods from "./Foods";
 
 function Header() {
-  const navigate = useNavigate();
   return (
-    <div>
-      <p>Header</p>
-      <div onClick={() => navigate("/Nearby")} className="h-screen">
-        Nearby
+    <div className="flex flex-col">
+      <Hero />
+
+      <div>
+        <NearbyRestaurants />
       </div>
+
+      <Foods />
     </div>
   );
 }

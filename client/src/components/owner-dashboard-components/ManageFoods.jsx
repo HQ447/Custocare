@@ -30,6 +30,7 @@ const ManageFoods = () => {
   const [form1, setForm1] = useState({
     foodName: "",
     description1: "",
+    category: "",
     oldPrice: "",
     newPrice: "",
     restaurantId: "", // dropdown value
@@ -80,6 +81,7 @@ const ManageFoods = () => {
     const formData = new FormData();
     formData.append("foodName", form1.foodName);
     formData.append("description", form1.description1);
+    formData.append("category", form1.category);
     formData.append("oldPrice", form1.oldPrice);
     formData.append("newPrice", form1.newPrice);
     formData.append("restaurantId", form1.restaurantId);
@@ -336,6 +338,23 @@ const ManageFoods = () => {
         />
 
         <form onSubmit={handleSubmitFood} className="space-y-3">
+          <select
+            name="restaurantId"
+            value={form.restaurantId}
+            onChange={handleChangeFood}
+            className="w-full border px-3 py-2 rounded"
+            required
+          >
+            <option value="">Select Restaurant</option>
+            {restaurants
+              .filter((r) => r.status === "Approved")
+              .map((r) => (
+                <option key={r._id} value={r._id}>
+                  {r.restaurantName}
+                </option>
+              ))}
+          </select>
+
           <input
             type="text"
             name="foodName"
@@ -345,6 +364,19 @@ const ManageFoods = () => {
             className="w-full border px-3 py-2 rounded"
             required
           />
+          <select
+            name="category"
+            value={form.category}
+            onChange={handleChangeFood}
+            className="w-full border px-3 py-2 rounded"
+            required
+          >
+            <option value="">Select Food Category</option>
+
+            <option value="veg">Veg Food</option>
+            <option value="non-veg">Non Veg Food</option>
+          </select>
+
           <textarea
             type="text"
             name="description1"
@@ -372,22 +404,6 @@ const ManageFoods = () => {
             className="w-full border px-3 py-2 rounded"
             required
           />
-          <select
-            name="restaurantId"
-            value={form.restaurantId}
-            onChange={handleChangeFood}
-            className="w-full border px-3 py-2 rounded"
-            required
-          >
-            <option value="">Select Restaurant</option>
-            {restaurants
-              .filter((r) => r.status === "Approved")
-              .map((r) => (
-                <option key={r._id} value={r._id}>
-                  {r.restaurantName}
-                </option>
-              ))}
-          </select>
 
           <button
             type="submit"

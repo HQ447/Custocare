@@ -159,7 +159,9 @@ const ManageRestaurants = () => {
               <h2 className="text-xl font-semibold">
                 {restaurant.restaurantName}
               </h2>
-              <p className="text-gray-600">{restaurant.description}</p>
+              <p className="text-gray-600 text-xs line-clamp-3">
+                {restaurant.description}
+              </p>
               <p className="text-gray-600">{restaurant.address}</p>
               <p className="text-sm text-gray-500 mt-1">
                 Cuisine: {restaurant.cuisine || "Not specified"}

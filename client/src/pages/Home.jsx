@@ -7,7 +7,7 @@ function Home() {
     <div className="flex flex-col">
       <Navbar />
 
-      <div className="px-20 h-screen">
+      <div className=" min-h-screen">
         <Outlet />
       </div>
       <Footer />

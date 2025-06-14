@@ -226,11 +226,11 @@ function RestaurantDetails() {
               {foods.map((item) => (
                 <div
                   key={item._id}
-                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group"
+                  className=" relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl  shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group"
                 >
                   {/* Owner Controls for Food Items */}
                   {role === "owner" && (
-                    <div className="flex gap-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <div className="absolute top-2 z-10  opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                       <button
                         onClick={() =>
                           navigate(`/owner-dashboard/updateFood/${item._id}`)
@@ -245,23 +245,23 @@ function RestaurantDetails() {
                     </div>
                   )}
 
-                  <div className="text-center">
+                  <div className="s p-2">
                     <div className="relative mb-4">
                       <img
-                        className="w-24 h-24 object-cover rounded-full mx-auto shadow-lg ring-4 ring-white"
+                        className=" object-cover w-full rounded-md mx-auto shadow-lg ring-white"
                         src={item.img}
                         alt={item.foodName}
                       />
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-1">
                       {item.foodName}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                    <p className="text-gray-600 text-justify line-clamp-3 text-sm mb-4 leading-relaxed">
                       {item.description}
                     </p>
 
-                    <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="flex   gap-3 mb-4">
                       {item.oldPrice && (
                         <span className="text-gray-500 line-through text-lg">
                           ${item.oldPrice}
