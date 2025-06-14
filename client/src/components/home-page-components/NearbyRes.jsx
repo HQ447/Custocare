@@ -38,7 +38,6 @@ const NearbyRestaurants = () => {
       const data = await res.json();
       if (data.success) {
         setRestaurants(data.restaurants);
-        console.log(data);
       }
     } catch (err) {
       console.error("Failed to fetch nearby restaurants:", err);

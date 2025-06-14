@@ -115,6 +115,10 @@ function RestaurantDetails() {
     return stars;
   };
 
+  function handleAdd(id) {
+    navigate(`/checkout/${id}`);
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
       {/* Hero Section */}
@@ -269,8 +273,11 @@ function RestaurantDetails() {
                     </div>
 
                     {role === "customer" && (
-                      <button className="w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold hover:from-orange-600 hover:to-amber-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                        🛒 Add to Order
+                      <button
+                        onClick={() => handleAdd(item._id)}
+                        className="w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold hover:from-orange-600 hover:to-amber-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                      >
+                        🛒 Add
                       </button>
                     )}
                   </div>

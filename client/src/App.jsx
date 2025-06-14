@@ -19,6 +19,7 @@ import Header from "./components/home-page-components/Header";
 import NearbyRestaurants from "./components/home-page-components/NearbyRes";
 import Services from "./components/home-page-components/Services";
 import RestaurantDetail from "./components/home-page-components/RestaurantDetail";
+import Checkout from "./components/home-page-components/Checkout";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="Nearby" element={<NearbyRestaurants />} />
             <Route path="services" element={<Services />} />
             <Route path="RestDetail/:id" element={<RestaurantDetails />} />
+            <Route path="checkout/:id" element={<Checkout />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
