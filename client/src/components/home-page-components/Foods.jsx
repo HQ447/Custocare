@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Leaf, Utensils, ShoppingCart, Star } from "lucide-react";
+import { Leaf, Utensils, ShoppingCart, Star, Rss } from "lucide-react";
 
 function Foods() {
   const domain = "http://localhost:8000/app";
@@ -11,7 +11,6 @@ function Foods() {
     try {
       const res = await fetch(`${domain}/getAllFoods`, {
         headers: {
-          Authorization: `bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
@@ -19,11 +18,29 @@ function Foods() {
       const data = await res.json();
 
       if (res.ok) {
-        console.log(data.foods);
         setFoods(data.foods);
       }
     } catch (error) {
       console.log("Error in fetching foods", error);
+    }
+  };
+
+  const handleAddToCart = async (food) => {
+    try {
+      const res = await fetch(`${domain}/addToOrder`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(food),
+      });
+      const result = await res.json();
+      if (res.ok) {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.log("error in add to order", error);
     }
   };
 
@@ -154,7 +171,10 @@ function Foods() {
                     )}
                   </div>
 
-                  <button className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-1">
+                  <button
+                    onClick={() => handleAddToCart(food)}
+                    className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-1"
+                  >
                     <ShoppingCart className="w-4 h-4" />
                     <span>Add to Cart</span>
                   </button>
@@ -180,14 +200,6 @@ function Foods() {
               {category === "veg" ? "vegetarian" : "non-vegetarian"} dishes at
               the moment.
             </p>
-            <button
-              onClick={() =>
-                setCategory(category === "veg" ? "non-veg" : "veg")
-              }
-              className="text-orange-600 hover:text-orange-700 font-medium text-sm"
-            >
-              Try {category === "veg" ? "Non-Vegetarian" : "Vegetarian"} →
-            </button>
           </div>
         )}
       </div>

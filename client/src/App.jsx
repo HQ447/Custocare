@@ -21,6 +21,7 @@ import Services from "./components/home-page-components/Services";
 import RestaurantDetail from "./components/home-page-components/RestaurantDetail";
 import Checkout from "./components/home-page-components/Checkout";
 import Order from "./components/home-page-components/Order";
+import Fav from "./components/home-page-components/Fav";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="RestDetail/:id" element={<RestaurantDetails />} />
             <Route path="checkout/:id" element={<Checkout />} />
             <Route path="order" element={<Order />} />
+            <Route path="fav" element={<Fav />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

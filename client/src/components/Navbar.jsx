@@ -4,6 +4,7 @@ import { isTokenExpired } from "../../utils/authUtils";
 import { FaTruckFast } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
 import { FaLocationDot } from "react-icons/fa6";
+import { HiOutlineShoppingCart } from "react-icons/hi2";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ function Navbar() {
 
         <div className="location flex items-center gap-2 w-1/3">
           <FaLocationDot className="text-2xl text-red-500" />
+
           <p className="text-sm text-gray-600 truncate">
             {address || "Fetching location..."}
           </p>
@@ -75,10 +77,16 @@ function Navbar() {
           {role && (
             <div>
               {role === "customer" ? (
-                <FaTruckFast
-                  onClick={() => navigate("order")}
-                  className="text-2xl cursor-pointer hover:scale-105 transition-all"
-                />
+                <div className="flex justify-center items-center gap-2">
+                  <FaTruckFast
+                    onClick={() => navigate("order")}
+                    className="text-2xl cursor-pointer hover:scale-105 transition-all"
+                  />
+                  <HiOutlineShoppingCart
+                    onClick={() => navigate("fav")}
+                    className="text-2xl cursor-pointer hover:scale-105 transition-all"
+                  />
+                </div>
               ) : role === "owner" ? (
                 <button
                   onClick={() => navigate("/owner-dashboard")}

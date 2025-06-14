@@ -115,8 +115,23 @@ function RestaurantDetails() {
     return stars;
   };
 
-  function handleAdd(id) {
-    navigate(`/checkout/${id}`);
+  async function handleAdd(food) {
+    try {
+      const res = await fetch(`${domain}/addToOrder`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(food),
+      });
+      const result = await res.json();
+      if (res.ok) {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.log("error in add to order", error);
+    }
   }
 
   return (
@@ -274,7 +289,7 @@ function RestaurantDetails() {
 
                     {role === "customer" && (
                       <button
-                        onClick={() => handleAdd(item._id)}
+                        onClick={() => handleAdd(item)}
                         className="w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold hover:from-orange-600 hover:to-amber-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                       >
                         🛒 Add
