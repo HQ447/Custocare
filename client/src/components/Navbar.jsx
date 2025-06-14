@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { isTokenExpired } from "../../utils/authUtils";
+import { FaTruckFast } from "react-icons/fa6";
+import { FiLogOut } from "react-icons/fi";
+import { FaLocationDot } from "react-icons/fa6";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -34,14 +37,26 @@ function Navbar() {
 
   return (
     <div className="flex justify-between px-20 py-5 bg-gray-50">
-      <h1 className="text-2xl font-bold">Custocare</h1>
+      <div className="flex flex-col">
+        <h1 className="text-2xl font-bold"> Custocare</h1>
+        <p className="text-xs text-gray-700 self-end">Pakistan</p>
+      </div>
+      <div className="location flex justify-center items-center">
+        <FaLocationDot className="text-2xl " />
+        <p>Pakistan</p>
+      </div>
       <div className="flex justify-center items-center gap-2">
         <h1>{name ? name : "Guest"}</h1>
 
         {role && (
           <div>
             {role == "customer" ? (
-              <div>icons</div>
+              <div>
+                <FaTruckFast
+                  onClick={() => navigate("order")}
+                  className="text-2xl cursor-pointer hover:scale-105 transition-all"
+                />
+              </div>
             ) : role == "owner" ? (
               <button
                 onClick={() => navigate("/owner-dashboard")}
@@ -68,12 +83,10 @@ function Navbar() {
             Login
           </button>
         ) : (
-          <button
+          <FiLogOut
             onClick={handleLogout}
-            className="bg-red-600 cursor-pointer hover:bg-red-700 hover:scale-95 transition-all px-4 py-2 rounded-md text-white font-semibold"
-          >
-            Logout
-          </button>
+            className="font-bold text-2xl text-red-600 hover:scale-110 transition-all cursor-pointer"
+          />
         )}
       </div>
     </div>
