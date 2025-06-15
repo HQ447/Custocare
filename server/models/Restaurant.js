@@ -13,7 +13,7 @@ const restaurantSchema = new mongoose.Schema(
     address: { type: String, required: true },
     ratingCount: { type: Number },
     status: { type: String, default: "Pending" },
-    rating: { type: Number },
+    rating: { type: Number, default: 1 },
     coordinates: {
       type: { type: String, enum: ["Point"], default: "Point" },
       coordinates: { type: [Number], default: [0, 0] },
