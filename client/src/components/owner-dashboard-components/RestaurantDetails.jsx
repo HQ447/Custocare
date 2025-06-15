@@ -11,6 +11,72 @@ function RestaurantDetails() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Feedback state
+  const [currentRating, setCurrentRating] = useState(0);
+  const [feedbackText, setFeedbackText] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Custom Star Rating Component
+  const StarRating = ({
+    rating,
+    onRatingChange,
+    size = 24,
+    editable = true,
+  }) => {
+    const [hoverRating, setHoverRating] = useState(0);
+
+    const handleClick = (starIndex) => {
+      if (editable && onRatingChange) {
+        onRatingChange(starIndex);
+      }
+    };
+
+    const handleMouseEnter = (starIndex) => {
+      if (editable) {
+        setHoverRating(starIndex);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (editable) {
+        setHoverRating(0);
+      }
+    };
+
+    return (
+      <div className="flex items-center gap-1">
+        {[1, 2, 3, 4, 5].map((starIndex) => (
+          <button
+            key={starIndex}
+            type="button"
+            className={`transition-colors duration-200 ${
+              editable ? "cursor-pointer hover:scale-110" : "cursor-default"
+            }`}
+            onClick={() => handleClick(starIndex)}
+            onMouseEnter={() => handleMouseEnter(starIndex)}
+            onMouseLeave={handleMouseLeave}
+            disabled={!editable}
+          >
+            <svg
+              width={size}
+              height={size}
+              viewBox="0 0 24 24"
+              fill={
+                starIndex <= (hoverRating || rating) ? "#ffd700" : "#e4e5e9"
+              }
+              stroke={
+                starIndex <= (hoverRating || rating) ? "#ffd700" : "#e4e5e9"
+              }
+              strokeWidth="1"
+            >
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </button>
+        ))}
+      </div>
+    );
+  };
+
   const fetchRestaurant = async () => {
     try {
       const res = await fetch(`${domain}/getSingleRes/${id}`, {
@@ -48,6 +114,58 @@ function RestaurantDetails() {
       console.error("Error fetching foods:", err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleRatingChange = (newRating) => {
+    setCurrentRating(newRating);
+  };
+
+  // Submit feedback and rating
+  const handleSubmitFeedback = async () => {
+    // Check if both rating and feedback are provided
+    if (!currentRating || currentRating < 1 || currentRating > 5) {
+      alert("Please provide a rating between 1 and 5 stars");
+      return;
+    }
+
+    if (!feedbackText.trim()) {
+      alert("Please enter your feedback");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch(`${domain}/ratingFeedback/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          rating: currentRating,
+          feedback: feedbackText.trim(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(data.message);
+        // Reset form
+        setCurrentRating(0);
+        setFeedbackText("");
+        // Refresh restaurant data to show updated rating
+        fetchRestaurant();
+      } else {
+        alert(data.error || data.message || "Failed to submit feedback");
+      }
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      alert("Failed to submit feedback. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -312,6 +430,63 @@ function RestaurantDetails() {
               This restaurant is working on their delicious menu. Check back
               soon!
             </p>
+          </div>
+        )}
+
+        {/* Feedback Section - Only show for customers */}
+        {role === "customer" && (
+          <div className="bg-white rounded-2xl shadow-xl p-8 mt-10">
+            <div className="text-center mb-8">
+              <h2 className="text-4xl font-bold text-gray-800 mb-2">
+                💬 Feedback
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-amber-400 mx-auto rounded-full"></div>
+            </div>
+
+            <div className="space-y-4">
+              {/* Rating Stars */}
+              <div className="flex flex-col items-center gap-2">
+                <label className="text-lg font-semibold text-gray-700">
+                  Rate your experience:
+                </label>
+                <StarRating
+                  rating={currentRating}
+                  onRatingChange={handleRatingChange}
+                  size={32}
+                  editable={true}
+                />
+                {currentRating > 0 && (
+                  <span className="text-sm text-gray-600">
+                    {currentRating} out of 5 stars
+                  </span>
+                )}
+              </div>
+
+              {/* Feedback Input */}
+              <div className="flex w-full gap-3">
+                <input
+                  type="text"
+                  placeholder="Enter Your Feedback Here"
+                  value={feedbackText}
+                  onChange={(e) => setFeedbackText(e.target.value)}
+                  required
+                  className="py-3 w-full outline-none bg-gray-100 rounded-full px-10"
+                />
+                <button
+                  onClick={handleSubmitFeedback}
+                  disabled={
+                    isSubmitting || !currentRating || !feedbackText.trim()
+                  }
+                  className={`py-3 px-6 text-white rounded-full transition-all duration-200 ${
+                    isSubmitting || !currentRating || !feedbackText.trim()
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-amber-600 hover:bg-amber-700 hover:shadow-lg"
+                  }`}
+                >
+                  {isSubmitting ? "Submitting..." : "Submit"}
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
