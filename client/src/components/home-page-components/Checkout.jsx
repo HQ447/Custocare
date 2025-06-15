@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const [cartItems, setCartItems] = useState([]);
@@ -12,6 +13,7 @@ function Checkout() {
   const [loading, setLoading] = useState(false);
   const domain = "http://localhost:8000/app";
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   const fetchCartItems = async () => {
     try {
@@ -70,8 +72,11 @@ function Checkout() {
     try {
       // Prepare order data
       const orderData = {
-        customerInfo,
-        total: calculateGrandTotal(),
+        fullName: customerInfo.fullName,
+        phone: customerInfo.phone,
+        address: customerInfo.address,
+        paymentMethod: customerInfo.paymentMethod,
+        total: parseFloat(calculateGrandTotal()),
       };
 
       // You can uncomment this when you have the API endpoint ready
@@ -89,6 +94,9 @@ function Checkout() {
 
       if (res.ok) {
         alert("Order placed successfully!");
+        fetchCartItems();
+        navigate("/");
+        setLoading(false);
       } else {
         alert("Failed to place order: " + data.message);
       }

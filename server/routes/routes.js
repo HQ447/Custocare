@@ -22,6 +22,7 @@ import { getAllFoods } from "../controllers/getAllFoods.js";
 import { addToOrder } from "../controllers/addToOrder.js";
 import { getCartItems } from "../controllers/getCartItems.js";
 import { placeOrder } from "../controllers/placeOrder.js";
+import { getAllOrders } from "../controllers/getAllOrders.js";
 
 const router = express.Router();
 
@@ -62,6 +63,7 @@ router.get("/getAllFoods", getAllFoods);
 router.post("/addToOrder", tokenVerifier, addToOrder);
 router.get("/getCartItems", tokenVerifier, getCartItems);
 router.post("/placeOrder", tokenVerifier, placeOrder);
+router.get("/getAllOrders", tokenVerifier, getAllOrders);
 
 router.get("/getRestaurant", tokenVerifier, getRestautants);
 router.get("/getFoods/:restaurantId", tokenVerifier, getFoods);

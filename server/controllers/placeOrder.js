@@ -6,9 +6,6 @@ export const placeOrder = async (req, res) => {
     const { fullName, phone, address, total, paymentMethod } = req.body;
     const customerId = req.user.id;
 
-    console.log("reqbody:", req.body);
-    console.log("idd:", req.user.id);
-
     // Validate required fields
     if (!fullName || !phone || !address || !total) {
       return res.status(400).json({ message: "All fields are required" });
@@ -41,7 +38,7 @@ export const placeOrder = async (req, res) => {
     await order.save();
 
     // Clear the cart after successful order
-    await Cart.deleteMany({ userId });
+    await Cart.deleteMany({ customerId });
 
     res.status(200).json({
       message: "Order placed successfully",
