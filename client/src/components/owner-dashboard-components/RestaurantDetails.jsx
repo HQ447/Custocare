@@ -7,6 +7,7 @@ function RestaurantDetails() {
   const token = localStorage.getItem("token");
   const [restaurant, setRestaurant] = useState(null);
   const [foods, setFoods] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
   const role = localStorage.getItem("role");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -158,6 +159,7 @@ function RestaurantDetails() {
         setFeedbackText("");
         // Refresh restaurant data to show updated rating
         fetchRestaurant();
+        fetchFeedbacks();
       } else {
         alert(data.error || data.message || "Failed to submit feedback");
       }
@@ -169,7 +171,25 @@ function RestaurantDetails() {
     }
   };
 
+  const fetchFeedbacks = async () => {
+    try {
+      const res = await fetch(`${domain}/getFeedbacks/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setFeedbacks(data.feedbacks);
+      }
+    } catch (error) {
+      console.log("error in fetching feedbacks", error);
+    }
+  };
+
   useEffect(() => {
+    fetchFeedbacks();
     fetchRestaurant();
     fetchFoods();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -434,15 +454,14 @@ function RestaurantDetails() {
         )}
 
         {/* Feedback Section - Only show for customers */}
-        {role === "customer" && (
-          <div className="bg-white rounded-2xl shadow-xl p-8 mt-10">
-            <div className="text-center mb-8">
-              <h2 className="text-4xl font-bold text-gray-800 mb-2">
-                💬 Feedback
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-amber-400 mx-auto rounded-full"></div>
-            </div>
-
+        <div className="bg-white rounded-2xl shadow-xl p-8 mt-10">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-gray-800 mb-2">
+              💬 Feedback
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-amber-400 mx-auto rounded-full"></div>
+          </div>
+          {role === "customer" && (
             <div className="space-y-4">
               {/* Rating Stars */}
               <div className="flex flex-col items-center gap-2">
@@ -487,8 +506,34 @@ function RestaurantDetails() {
                 </button>
               </div>
             </div>
+          )}
+          <div>
+            {feedbacks.length > 0 ? (
+              <div className="mt-4">
+                {feedbacks.map((feedback) => (
+                  <div key={feedback._id} className="flex flex-col gap-2">
+                    <div className="flex justify-between">
+                      <div className="flex gap-4 items-center ">
+                        <img
+                          src={feedback.img}
+                          alt=""
+                          className="h-10 w-10 rounded-full object-cover"
+                        />
+                        <h1 className="font-semibold">{feedback.name}</h1>
+                      </div>
+                      <p>{new Date(feedback.createdAt).toLocaleString()}</p>
+                    </div>
+
+                    <h1>{feedback.feedback}</h1>
+                    <br />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>No comments</p>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

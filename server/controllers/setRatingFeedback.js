@@ -44,7 +44,9 @@ export const setRatingFeedback = async (req, res) => {
       rating,
       feedback,
       name: customer.name,
-      img: customer.img || "https://via.placeholder.com/150",
+      img:
+        customer.img ||
+        "https://www.shutterstock.com/image-photo/head-shot-portrait-close-smiling-600nw-1714666150.jpg",
     });
 
     await newFeedback.save();

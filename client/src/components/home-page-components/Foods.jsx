@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Foods() {
   const domain = "http://localhost:8000/app";
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
   const [foods, setFoods] = useState([]);
   const navigate = useNavigate();
   const [category, setCategory] = useState("veg");
@@ -58,7 +59,7 @@ function Foods() {
   const filteredFoods = foods.filter((food) => food.category === category);
 
   return (
-    <div className="bg-white py-8 sm:py-12">
+    <div className="bg-white py-8 sm:py-12 px-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-6 sm:mb-8">
@@ -177,14 +178,15 @@ function Foods() {
                       </span>
                     )}
                   </div>
-
-                  <button
-                    onClick={() => handleAddToCart(food)}
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-1"
-                  >
-                    <ShoppingCart className="w-4 h-4" />
-                    <span>Add to Cart</span>
-                  </button>
+                  {role == "customer" && (
+                    <button
+                      onClick={() => handleAddToCart(food)}
+                      className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-1"
+                    >
+                      <ShoppingCart className="w-4 h-4" />
+                      <span>Add to Cart</span>
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

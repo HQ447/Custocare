@@ -2,6 +2,7 @@ import React from "react";
 import Hero from "./Hero";
 import NearbyRestaurants from "./NearbyRes";
 import Foods from "./Foods";
+import Testimonials from "./Testimonials";
 
 function Header() {
   return (
@@ -13,6 +14,8 @@ function Header() {
       </div>
 
       <Foods />
+
+      <Testimonials />
     </div>
   );
 }
