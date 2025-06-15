@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Leaf, Utensils, ShoppingCart, Star, Rss } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Foods() {
   const domain = "http://localhost:8000/app";
   const token = localStorage.getItem("token");
   const [foods, setFoods] = useState([]);
+  const navigate = useNavigate();
   const [category, setCategory] = useState("veg");
 
   const fetchFoods = async () => {
@@ -26,6 +28,11 @@ function Foods() {
   };
 
   const handleAddToCart = async (food) => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     try {
       const res = await fetch(`${domain}/addToOrder`, {
         method: "POST",

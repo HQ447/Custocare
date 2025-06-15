@@ -14,6 +14,7 @@ const cartSchema = new mongoose.Schema({
   foodName: { type: String, required: true },
   img: { type: String },
   description: { type: String, required: true },
+  qty: { type: Number, default: 1 },
   category: { type: String, default: "veg" },
   oldPrice: { type: Number },
   newPrice: { type: Number },
