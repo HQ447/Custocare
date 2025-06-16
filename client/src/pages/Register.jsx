@@ -70,7 +70,7 @@ const Register = () => {
               Create Account
             </h2>
             <p className="text-gray-600 text-sm">
-              Sign up and get your first meal delivered!
+              Sign up and get your first meal delivered
             </p>
           </div>
 
