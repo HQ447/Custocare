@@ -15,6 +15,7 @@ function Fav() {
   const domain = "http://localhost:8000/app";
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+
   const fetchCartItems = async () => {
     try {
       const res = await fetch(`${domain}/getCartItems`, {
@@ -36,28 +37,63 @@ function Fav() {
 
   useEffect(() => {
     fetchCartItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Helper functions for cart calculations
-  const updateQuantity = (id, newQuantity) => {
-    if (newQuantity === 0) {
-      removeItem(id);
-      return;
+  const updateQuantity = async (id) => {
+    try {
+      const res = await fetch(`${domain}/increment/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        fetchCartItems();
+      }
+    } catch (error) {
+      console.log("Error in incrementing qty", error);
     }
-    setCartItems((items) =>
-      items.map((item) =>
-        item._id === id ? { ...item, quantity: newQuantity || 1 } : item
-      )
-    );
+  };
+  const decQuantity = async (id) => {
+    try {
+      const res = await fetch(`${domain}/decrement/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        fetchCartItems();
+      }
+    } catch (error) {
+      console.log("Error in incrementing qty", error);
+    }
   };
 
-  const removeItem = (id) => {
-    setCartItems((items) => items.filter((item) => item._id !== id));
+  const removeItem = async (id) => {
+    try {
+      const res = await fetch(`${domain}/removeCartItem/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        fetchCartItems();
+      }
+    } catch (error) {
+      console.log("Error in incrementing qty", error);
+    }
   };
 
   // Calculate totals
   const subtotal = cartItems.reduce((sum, item) => {
-    const quantity = item.quantity || 1;
+    const quantity = item.qty || 1;
     return sum + item.newPrice * quantity;
   }, 0);
 
@@ -136,26 +172,16 @@ function Fav() {
                         <div className="flex items-center space-x-3">
                           <div className="flex items-center border border-gray-200 rounded-lg">
                             <button
-                              onClick={() =>
-                                updateQuantity(
-                                  item._id,
-                                  (item.quantity || 1) - 1
-                                )
-                              }
+                              onClick={() => decQuantity(item._id)}
                               className="p-2 hover:bg-gray-50 transition-colors"
                             >
                               <Minus className="h-4 w-4 text-gray-600" />
                             </button>
                             <span className="px-4 py-2 font-medium text-gray-900">
-                              {item.quantity || 1}
+                              {item.qty}
                             </span>
                             <button
-                              onClick={() =>
-                                updateQuantity(
-                                  item._id,
-                                  (item.quantity || 1) + 1
-                                )
-                              }
+                              onClick={() => updateQuantity(item._id)}
                               className="p-2 hover:bg-gray-50 transition-colors"
                             >
                               <Plus className="h-4 w-4 text-gray-600" />

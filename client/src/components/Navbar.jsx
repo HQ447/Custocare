@@ -58,7 +58,10 @@ function Navbar() {
   return (
     <div className="fixed top-0 w-full z-10 bg-white px-20 py-3 shadow">
       <div className="flex justify-between ">
-        <div className="flex flex-col">
+        <div
+          className="flex flex-col cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           <h1 className="text-2xl font-bold">Custocare</h1>
           <p className="text-xs text-gray-700 self-end">Pakistan</p>
         </div>
