@@ -16,6 +16,12 @@ const orderSchema = new mongoose.Schema({
       img: { type: String },
       qty: { type: Number, required: true },
       price: { type: Number, required: true },
+      restaurantId: {
+        // ✅ New field
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Restaurant",
+        required: true,
+      },
     },
   ],
   total: { type: Number, required: true },

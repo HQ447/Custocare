@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -31,81 +31,8 @@ const ManageRestaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
   const navigate = useNavigate();
   const domain = "http://localhost:8000/app";
-  const [form, setForm] = useState({
-    restaurantName: "",
-    description: "",
-    address: "",
-    img: null,
-  });
 
-  const [coordinates, setCoordinates] = useState([73.0479, 33.6844]);
-  const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
-  const fileInputRef = useRef();
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setCoordinates([longitude, latitude]);
-      },
-      (err) => {
-        console.warn("Geolocation not allowed. Using default.", err);
-      }
-    );
-  }, []);
-
-  const handleChange = (e) => {
-    if (e.target.name === "img") {
-      const file = e.target.files[0];
-      setForm({ ...form, img: file });
-
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => setImagePreview(reader.result);
-        reader.readAsDataURL(file);
-      }
-    } else {
-      setForm({ ...form, [e.target.name]: e.target.value });
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const token = localStorage.getItem("token");
-
-    const formData = new FormData();
-    formData.append("restaurantName", form.restaurantName);
-    formData.append("description", form.description);
-    formData.append("address", form.address);
-    formData.append("img", form.img);
-    formData.append(
-      "coordinates",
-      JSON.stringify({
-        type: "Point",
-        coordinates: coordinates,
-      })
-    );
-
-    const res = await fetch(`${domain}/addRestaurant`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      alert("✅ Restaurant added successfully!");
-      setForm({ restaurantName: "", description: "", address: "", img: null });
-      setImagePreview(null);
-      setLoading(false);
-    } else {
-      alert("❌ Error: " + data.message);
-    }
-  };
 
   const fetchRestaurants = async () => {
     try {
@@ -120,7 +47,7 @@ const ManageRestaurants = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setRestaurants(data.restaurants || data); // depending on your API response structure
+        setRestaurants(data.restaurants || data);
       } else {
         alert(data.message || "Failed to fetch restaurants");
       }
@@ -137,146 +64,131 @@ const ManageRestaurants = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center mt-10">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-lg text-gray-600 font-medium">
+            Loading restaurants...
+          </p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className=" p-6">
-      {/* All returents */}
-      <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-2xl font-bold mb-4">Restaurants</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {restaurants.map((restaurant) => (
-            <div
-              key={restaurant._id}
-              className="bg-white p-4 rounded shadow-md"
-            >
-              <img
-                src={restaurant.img || "https://via.placeholder.com/300x200"}
-                alt={restaurant.name}
-                className="w-full h-40 object-cover rounded mb-3"
-              />
-              <h2 className="text-xl font-semibold">
-                {restaurant.restaurantName}
-              </h2>
-              <p className="text-gray-600 text-xs line-clamp-3">
-                {restaurant.description}
-              </p>
-              <p className="text-gray-600">{restaurant.address}</p>
-              <p className="text-sm text-gray-500 mt-1">
-                Cuisine: {restaurant.cuisine || "Not specified"}
-              </p>
-              <div>
-                {restaurant.status == "Pending" ? (
-                  <h1>Waiting For Admin Approval</h1>
-                ) : (
-                  <div className="w-full flex justify-around items-center">
-                    <button
-                      onClick={() => navigate(`detail/${restaurant._id}`)}
-                      className="px-3 py-1 border-md hover:95 transition-all bg-blue-500 text-white"
-                    >
-                      View
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              Restaurant Management
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Manage your restaurants and add new locations
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Adding new restaurant */}
-      <div className="w-[60%] mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-6">
-          ➕ Add New Restaurant
-        </h2>
-
-        {/* 🖼️ Image Upload Preview Container */}
-        <label
-          htmlFor="img"
-          className="border border-dashed border-gray-400 p-4 h-32 mb-6 flex items-center justify-center bg-gray-100 cursor-pointer"
-          onClick={() => fileInputRef.current.click()}
-        >
-          {imagePreview ? (
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="max-h-full max-w-full object-contain"
-            />
-          ) : (
-            <span className="text-gray-600">
-              📷 Click here to upload restaurant image
-            </span>
-          )}
-        </label>
-
-        <input
-          type="file"
-          name="img"
-          accept="image/*"
-          onChange={handleChange}
-          ref={fileInputRef}
-          className="hidden"
-          required
-        />
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            name="restaurantName"
-            placeholder="Restaurant Name"
-            value={form.restaurantName}
-            onChange={handleChange}
-            required
-            className="border px-4 py-2 rounded focus:outline-none focus:ring"
-          />
-          <textarea
-            name="description"
-            placeholder="Description"
-            rows="3"
-            value={form.description}
-            onChange={handleChange}
-            required
-            className="border px-4 py-2 rounded focus:outline-none focus:ring resize-none"
-          />
-          <input
-            type="text"
-            name="address"
-            placeholder="Full Address"
-            value={form.address}
-            onChange={handleChange}
-            required
-            className="border px-4 py-2 rounded focus:outline-none focus:ring"
-          />
-
-          <label className="font-semibold">
-            📍 Click on the map to select restaurant location:
-          </label>
-
-          <div className="h-50 w-full rounded overflow-hidden">
-            <MapContainer
-              center={[coordinates[1], coordinates[0]]}
-              zoom={13}
-              scrollWheelZoom={false}
-              className="h-full w-full"
-            >
-              <TileLayer
-                attribution="&copy; OpenStreetMap contributors"
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <LocationPicker setCoordinates={setCoordinates} />
-              <SetMapCenter coordinates={coordinates} />
-              <Marker position={[coordinates[1], coordinates[0]]} />
-            </MapContainer>
+      {/* All Restaurants Section */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                🍽️ Your Restaurants
+              </h2>
+              <p className="text-gray-600">
+                Manage and view all your restaurant locations
+              </p>
+            </div>
+            <div className="bg-blue-100 px-4 py-2 rounded-full">
+              <span className="text-blue-700 font-semibold">
+                {restaurants.length} Restaurant
+                {restaurants.length !== 1 ? "s" : ""}
+              </span>
+            </div>
           </div>
 
-          <button
-            type="submit"
-            className="mt-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
-          >
-            {loading ? "Adding Restautrent..." : "➕ Add Restaurant"}
-          </button>
-        </form>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {restaurants.map((restaurant) => (
+              <div
+                key={restaurant._id}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={
+                      restaurant.img || "https://via.placeholder.com/400x240"
+                    }
+                    alt={restaurant.name}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
+                    {restaurant.restaurantName}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                    {restaurant.description}
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-start gap-2">
+                      <span className="text-gray-400 mt-1">📍</span>
+                      <p className="text-gray-700 text-sm line-clamp-2">
+                        {restaurant.address}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">🍳</span>
+                      <p className="text-gray-700 text-sm">
+                        {restaurant.cuisine || "Cuisine not specified"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="border-t pt-4">
+                    {restaurant.status === "Pending" ? (
+                      <div className="flex items-center justify-center py-3 px-4 bg-yellow-50 rounded-xl border border-yellow-200">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                          <span className="text-yellow-700 font-medium text-sm">
+                            Awaiting Admin Approval
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => navigate(`detail/${restaurant._id}`)}
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
+                      >
+                        View Details →
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {restaurants.length === 0 && (
+            <div className="text-center py-16">
+              <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                <span className="text-4xl">🏪</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                No restaurants yet
+              </h3>
+              <p className="text-gray-600">
+                Add your first restaurant to get started
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

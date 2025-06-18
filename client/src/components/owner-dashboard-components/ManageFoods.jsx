@@ -96,9 +96,10 @@ const ManageFoods = () => {
     const data = await res.json();
     if (data.success) {
       alert("✅ Food item added!");
-      setForm({
+      setForm1({
         foodName: "",
         description1: "",
+        category: "",
         oldPrice: "",
         newPrice: "",
         restaurantId: "",
@@ -210,208 +211,392 @@ const ManageFoods = () => {
   }, []);
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-6">
-      {/* Adding new restaurant */}
-      <div className=" mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-6">
-          ➕ Add New Restaurant
-        </h2>
-
-        {/* 🖼️ Image Upload Preview Container */}
-        <label
-          htmlFor="img"
-          className="border border-dashed border-gray-400 p-4 h-32 mb-6 flex items-center justify-center bg-gray-100 cursor-pointer"
-          onClick={() => restaurantFile.current.click()}
-        >
-          {imagePreview ? (
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="max-h-full max-w-full object-contain"
-            />
-          ) : (
-            <span className="text-gray-600">
-              📷 Click here to upload restaurant image
-            </span>
-          )}
-        </label>
-
-        <input
-          type="file"
-          name="img"
-          accept="image/*"
-          onChange={handleChange}
-          ref={restaurantFile}
-          className="hidden"
-          required
-        />
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            name="restaurantName"
-            placeholder="Restaurant Name"
-            value={form.restaurantName}
-            onChange={handleChange}
-            required
-            className="border px-4 py-2 rounded focus:outline-none focus:ring"
-          />
-          <textarea
-            name="description"
-            placeholder="Description"
-            rows="3"
-            value={form.description}
-            onChange={handleChange}
-            required
-            className="border px-4 py-2 rounded focus:outline-none focus:ring resize-none"
-          />
-          <input
-            type="text"
-            name="address"
-            placeholder="Full Address"
-            value={form.address}
-            onChange={handleChange}
-            required
-            className="border px-4 py-2 rounded focus:outline-none focus:ring"
-          />
-
-          <label className="font-semibold">
-            📍 Click on the map to select restaurant location:
-          </label>
-
-          <div className="h-50 w-full rounded overflow-hidden">
-            <MapContainer
-              center={[coordinates[1], coordinates[0]]}
-              zoom={13}
-              scrollWheelZoom={false}
-              className="h-full w-full"
-            >
-              <TileLayer
-                attribution="&copy; OpenStreetMap contributors"
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <LocationPicker setCoordinates={setCoordinates} />
-              <SetMapCenter coordinates={coordinates} />
-              <Marker position={[coordinates[1], coordinates[0]]} />
-            </MapContainer>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              Food & Restaurant Management
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Add new restaurants and manage your food menu
+            </p>
           </div>
-
-          <button
-            type="submit"
-            className="mt-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
-          >
-            {loading ? "Adding Restautrent..." : "➕ Add Restaurant"}
-          </button>
-        </form>
+        </div>
       </div>
 
-      {/* Adding Food */}
-      <div>
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          ➕ Add New Food
-        </h2>
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Add New Restaurant Section */}
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
+              <h2 className="text-2xl font-bold text-white text-center mb-2">
+                🏪 Add New Restaurant
+              </h2>
+              <p className="text-blue-100 text-center text-sm">
+                Create a new restaurant location
+              </p>
+            </div>
 
-        {/* Image Preview */}
-        <label
-          htmlFor="img"
-          className="border border-dashed border-gray-400 bg-gray-50 h-48 flex justify-center items-center cursor-pointer mb-4"
-          onClick={() => foodFile.current.click()}
-        >
-          {imagePreview1 ? (
-            <img
-              src={imagePreview1}
-              alt="Preview"
-              className="h-full object-contain"
-            />
-          ) : (
-            <span className="text-gray-500">📷 Click to upload food image</span>
-          )}
-        </label>
-        <input
-          type="file"
-          name="img1"
-          accept="image/*"
-          onChange={handleChangeFood}
-          ref={foodFile}
-          className="hidden"
-          required
-        />
+            <div className="p-8">
+              {/* Restaurant Image Upload */}
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  Restaurant Image
+                </label>
+                <label
+                  htmlFor="img"
+                  className="group relative border-2 border-dashed border-gray-300 hover:border-blue-400 rounded-2xl p-6 transition-colors cursor-pointer bg-gray-50 hover:bg-blue-50"
+                  onClick={() => restaurantFile.current.click()}
+                >
+                  {imagePreview ? (
+                    <div className="relative">
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="max-h-32 max-w-full object-contain mx-auto rounded-xl"
+                      />
+                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                        <span className="text-white font-medium text-sm">
+                          Click to change
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-200 transition-colors">
+                        <span className="text-xl">📷</span>
+                      </div>
+                      <p className="text-gray-600 font-medium text-sm">
+                        Upload restaurant image
+                      </p>
+                    </div>
+                  )}
+                </label>
 
-        <form onSubmit={handleSubmitFood} className="space-y-3">
-          <select
-            name="restaurantId"
-            value={form.restaurantId}
-            onChange={handleChangeFood}
-            className="w-full border px-3 py-2 rounded"
-            required
-          >
-            <option value="">Select Restaurant</option>
-            {restaurants
-              .filter((r) => r.status === "Approved")
-              .map((r) => (
-                <option key={r._id} value={r._id}>
-                  {r.restaurantName}
-                </option>
-              ))}
-          </select>
+                <input
+                  type="file"
+                  name="img"
+                  accept="image/*"
+                  onChange={handleChange}
+                  ref={restaurantFile}
+                  className="hidden"
+                  required
+                />
+              </div>
 
-          <input
-            type="text"
-            name="foodName"
-            placeholder="Food Name"
-            value={form.foodName}
-            onChange={handleChangeFood}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
-          <select
-            name="category"
-            value={form.category}
-            onChange={handleChangeFood}
-            className="w-full border px-3 py-2 rounded"
-            required
-          >
-            <option value="">Select Food Category</option>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Restaurant Name
+                  </label>
+                  <input
+                    type="text"
+                    name="restaurantName"
+                    placeholder="Enter restaurant name"
+                    value={form.restaurantName}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                </div>
 
-            <option value="veg">Veg Food</option>
-            <option value="non-veg">Non Veg Food</option>
-          </select>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    placeholder="Describe your restaurant..."
+                    rows="3"
+                    value={form.description}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                  />
+                </div>
 
-          <textarea
-            type="text"
-            name="description1"
-            placeholder="Description"
-            value={form1.description1}
-            onChange={handleChangeFood}
-            className="w-full border px-3 py-2 rounded"
-            rows="3"
-            required
-          />
-          <input
-            type="number"
-            name="oldPrice"
-            placeholder="Old Price"
-            value={form.oldPrice}
-            onChange={handleChangeFood}
-            className="w-full border px-3 py-2 rounded"
-          />
-          <input
-            type="number"
-            name="newPrice"
-            placeholder="New Price"
-            value={form.newPrice}
-            onChange={handleChangeFood}
-            className="w-full border px-3 py-2 rounded"
-            required
-          />
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    placeholder="Enter complete address"
+                    value={form.address}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            ➕ Add Food
-          </button>
-        </form>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    📍 Restaurant Location
+                  </label>
+                  <div className="h-48 w-full rounded-2xl overflow-hidden shadow-md border border-gray-200">
+                    <MapContainer
+                      center={[coordinates[1], coordinates[0]]}
+                      zoom={13}
+                      scrollWheelZoom={false}
+                      className="h-full w-full"
+                    >
+                      <TileLayer
+                        attribution="&copy; OpenStreetMap contributors"
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      />
+                      <LocationPicker setCoordinates={setCoordinates} />
+                      <SetMapCenter coordinates={coordinates} />
+                      <Marker position={[coordinates[1], coordinates[0]]} />
+                    </MapContainer>
+                  </div>
+                  <div className="mt-2 p-2 bg-blue-50 rounded-lg">
+                    <p className="text-xs text-blue-700">
+                      <strong>Location:</strong> {coordinates[1].toFixed(4)},{" "}
+                      {coordinates[0].toFixed(4)}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] disabled:scale-100 shadow-lg"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                      <span>Adding Restaurant...</span>
+                    </div>
+                  ) : (
+                    <span>🏪 Add Restaurant</span>
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Add New Food Section */}
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="bg-gradient-to-r from-orange-500 to-red-500 px-8 py-6">
+              <h2 className="text-2xl font-bold text-white text-center mb-2">
+                🍽️ Add New Food Item
+              </h2>
+              <p className="text-orange-100 text-center text-sm">
+                Add delicious items to your menu
+              </p>
+            </div>
+
+            <div className="p-8">
+              {/* Food Image Upload */}
+              <div className="mb-6">
+                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  Food Image
+                </label>
+                <label
+                  htmlFor="img1"
+                  className="group relative border-2 border-dashed border-gray-300 hover:border-orange-400 rounded-2xl p-6 transition-colors cursor-pointer bg-gray-50 hover:bg-orange-50"
+                  onClick={() => foodFile.current.click()}
+                >
+                  {imagePreview1 ? (
+                    <div className="relative">
+                      <img
+                        src={imagePreview1}
+                        alt="Preview"
+                        className="max-h-40 max-w-full object-contain mx-auto rounded-xl"
+                      />
+                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                        <span className="text-white font-medium text-sm">
+                          Click to change
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors">
+                        <span className="text-2xl">🍽️</span>
+                      </div>
+                      <p className="text-gray-600 font-medium mb-1">
+                        Upload food image
+                      </p>
+                      <p className="text-gray-500 text-xs">
+                        Show off your delicious food
+                      </p>
+                    </div>
+                  )}
+                </label>
+                <input
+                  type="file"
+                  name="img1"
+                  accept="image/*"
+                  onChange={handleChangeFood}
+                  ref={foodFile}
+                  className="hidden"
+                  required
+                />
+              </div>
+
+              <form onSubmit={handleSubmitFood} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Select Restaurant
+                  </label>
+                  <select
+                    name="restaurantId"
+                    value={form1.restaurantId}
+                    onChange={handleChangeFood}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all bg-white"
+                    required
+                  >
+                    <option value="">Choose a restaurant</option>
+                    {restaurants
+                      .filter((r) => r.status === "Approved")
+                      .map((r) => (
+                        <option key={r._id} value={r._id}>
+                          {r.restaurantName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Food Name
+                  </label>
+                  <input
+                    type="text"
+                    name="foodName"
+                    placeholder="Enter food name"
+                    value={form1.foodName}
+                    onChange={handleChangeFood}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Category
+                  </label>
+                  <select
+                    name="category"
+                    value={form1.category}
+                    onChange={handleChangeFood}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all bg-white"
+                    required
+                  >
+                    <option value="">Select category</option>
+                    <option value="veg">🥗 Vegetarian</option>
+                    <option value="non-veg">🍖 Non-Vegetarian</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Description
+                  </label>
+                  <textarea
+                    name="description1"
+                    placeholder="Describe your delicious food item..."
+                    value={form1.description1}
+                    onChange={handleChangeFood}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all resize-none"
+                    rows="3"
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Old Price (Optional)
+                    </label>
+                    <input
+                      type="number"
+                      name="oldPrice"
+                      placeholder="₹0"
+                      value={form1.oldPrice}
+                      onChange={handleChangeFood}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Current Price *
+                    </label>
+                    <input
+                      type="number"
+                      name="newPrice"
+                      placeholder="₹0"
+                      value={form1.newPrice}
+                      onChange={handleChangeFood}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {form1.oldPrice &&
+                  form1.newPrice &&
+                  form1.oldPrice > form1.newPrice && (
+                    <div className="p-3 bg-green-50 border border-green-200 rounded-xl">
+                      <div className="flex items-center gap-2">
+                        <span className="text-green-600">💰</span>
+                        <span className="text-green-700 font-medium text-sm">
+                          Great! You're offering a discount of ₹
+                          {form1.oldPrice - form1.newPrice}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <span>🍽️</span>
+                    <span>Add Food Item</span>
+                  </span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
+          <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
+            📊 Quick Overview
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="text-center p-6 bg-blue-50 rounded-xl">
+              <div className="text-3xl mb-2">🏪</div>
+              <div className="text-2xl font-bold text-blue-600">
+                {restaurants.filter((r) => r.status === "Approved").length}
+              </div>
+              <div className="text-gray-600 font-medium">
+                Active Restaurants
+              </div>
+            </div>
+            <div className="text-center p-6 bg-yellow-50 rounded-xl">
+              <div className="text-3xl mb-2">⏳</div>
+              <div className="text-2xl font-bold text-yellow-600">
+                {restaurants.filter((r) => r.status === "Pending").length}
+              </div>
+              <div className="text-gray-600 font-medium">Pending Approval</div>
+            </div>
+            <div className="text-center p-6 bg-green-50 rounded-xl">
+              <div className="text-3xl mb-2">📈</div>
+              <div className="text-2xl font-bold text-green-600">
+                {restaurants.length}
+              </div>
+              <div className="text-gray-600 font-medium">Total Restaurants</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

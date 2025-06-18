@@ -29,6 +29,7 @@ import { getAllFeedbacks } from "../controllers/getAllFeedbacks.js";
 import { increment } from "../controllers/increment.js";
 import { decrement } from "../controllers/decrement.js";
 import { removeCartItem } from "../controllers/removeCartItem.js";
+import { getOwnerOrders } from "../controllers/owner/getOwnerOrders.js";
 
 const router = express.Router();
 
@@ -71,6 +72,8 @@ router.get("/getCartItems", tokenVerifier, getCartItems);
 router.post("/placeOrder", tokenVerifier, placeOrder);
 router.get("/getAllOrders", tokenVerifier, getAllOrders);
 router.post("/ratingFeedback/:id", tokenVerifier, setRatingFeedback);
+
+router.get("/getOwnerOrders", tokenVerifier, getOwnerOrders);
 
 router.get("/getRestaurant", tokenVerifier, getRestautants);
 router.get("/getFoods/:restaurantId", tokenVerifier, getFoods);

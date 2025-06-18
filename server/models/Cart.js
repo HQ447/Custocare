@@ -11,6 +11,11 @@ const cartSchema = new mongoose.Schema({
     ref: "Restaurant",
     required: true,
   },
+  foodId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Food", // or whatever your food model is called
+    required: true,
+  },
   foodName: { type: String, required: true },
   img: { type: String },
   description: { type: String, required: true },
