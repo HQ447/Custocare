@@ -53,15 +53,6 @@ A robust full-stack MERN food delivery platform where restaurant owners can mana
 
 ---
 
-## 📁 Project Structure
-
-/client # React frontend
-/server # Node/Express backend
-└── models # Mongoose schemas
-└── routes # API route handlers
-└── controllers # Route logic
-└── middlewares # JWT & role checks
-
 ## 🧪 Security & Performance
 
 - 🔐 All routes protected via **JWT + middleware**
@@ -72,4 +63,4 @@ A robust full-stack MERN food delivery platform where restaurant owners can mana
 
 ---
 
-## 📦 UI Design
+## 📁 UI Design
