@@ -30,6 +30,7 @@ import { increment } from "../controllers/increment.js";
 import { decrement } from "../controllers/decrement.js";
 import { removeCartItem } from "../controllers/removeCartItem.js";
 import { getOwnerOrders } from "../controllers/owner/getOwnerOrders.js";
+import { updateOrderStatus } from "../controllers/owner/updateOrderStatus.js";
 
 const router = express.Router();
 
@@ -74,8 +75,10 @@ router.get("/getAllOrders", tokenVerifier, getAllOrders);
 router.post("/ratingFeedback/:id", tokenVerifier, setRatingFeedback);
 
 router.get("/getOwnerOrders", tokenVerifier, getOwnerOrders);
+router.put("/updateOrderStatus/:id", tokenVerifier, updateOrderStatus);
 
 router.get("/getRestaurant", tokenVerifier, getRestautants);
+
 router.get("/getFoods/:restaurantId", tokenVerifier, getFoods);
 router.delete("/deleteRestaurant", tokenVerifier, deleteRestaurant);
 router.get("/getSingleRes/:id", tokenVerifier, singleRestaurant);

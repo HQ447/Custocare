@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 function ManageOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
+
   const domain = "http://localhost:8000/app"; // Change this to your API base URL
   const token = localStorage.getItem("token");
   const [status, setstatus] = useState("");
@@ -32,17 +34,19 @@ function ManageOrders() {
   };
 
   const updateOrderStatus = async (id) => {
+    setUpdating(true);
     try {
       const res = await fetch(`${domain}/updateOrderStatus/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(status),
+        body: JSON.stringify({ status }),
       });
 
       if (res.ok) {
-        alert("status updated");
+        setUpdating(false);
         fetchOrders();
       }
     } catch (error) {
@@ -297,7 +301,7 @@ function ManageOrders() {
                       !status ? " hidden " : ""
                     } px-4 py-2 bg-yellow-500 text-white rounded-sm font-bold`}
                   >
-                    Update
+                    {updating ? "Updating..." : "Update Status"}
                   </button>
                 </div>
               </div>
