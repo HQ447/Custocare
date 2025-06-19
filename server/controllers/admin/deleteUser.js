@@ -2,7 +2,7 @@ import User from "../../models/User.js";
 
 export const deleteUser = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  
   try {
     const user = await User.findById(id);
 

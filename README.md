@@ -64,3 +64,28 @@ A robust full-stack MERN food delivery platform where restaurant owners can mana
 ---
 
 ## 📁 UI Design
+![Screenshot (615)](https://github.com/user-attachments/assets/bcb30092-ba2c-4d1f-8efa-a7107a943495)
+
+![Screenshot (616)](https://github.com/user-attachments/assets/8262e651-b04c-4740-a44b-a5413a7e9038)
+
+![Screenshot (617)](https://github.com/user-attachments/assets/7acb30a6-a9cd-45bf-862f-883242bfd104)
+
+![Screenshot (618)](https://github.com/user-attachments/assets/366cfa85-4d64-4501-b88d-2939d282f410)
+
+![Screenshot (619)](https://github.com/user-attachments/assets/78c1da5d-6cf7-48a4-90bd-f774e254228b)
+
+![Screenshot (620)](https://github.com/user-attachments/assets/923919c5-faca-4870-974b-4c6390b8e9b0)
+
+![Screenshot (621)](https://github.com/user-attachments/assets/cf555c22-1ae5-4a01-8db8-0e5a36f031d3)
+
+![Screenshot (622)](https://github.com/user-attachments/assets/7044ed79-8aa8-4281-90a6-4d86ecc26729)
+
+![Screenshot (623)](https://github.com/user-attachments/assets/3a0cc827-2efc-4f53-a1b0-86fc7477a9b8)
+
+![Screenshot (624)](https://github.com/user-attachments/assets/797788c9-74a2-4da2-bc50-711b7df81284)
+
+![Screenshot (625)](https://github.com/user-attachments/assets/3b65d9e6-61e2-41db-87ce-cf0725875411)
+
+![Screenshot (626)](https://github.com/user-attachments/assets/aca2a94f-c410-4f77-9276-20d2c868cb29)
+
+![Screenshot (627)](https://github.com/user-attachments/assets/21146b32-9607-4d09-b8c2-0878a5092fdd)
