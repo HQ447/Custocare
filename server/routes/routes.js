@@ -22,7 +22,7 @@ import { getAllFoods } from "../controllers/getAllFoods.js";
 import { addToOrder } from "../controllers/addToOrder.js";
 import { getCartItems } from "../controllers/getCartItems.js";
 import { placeOrder } from "../controllers/placeOrder.js";
-import { getAllOrders } from "../controllers/getAllOrders.js";
+import { getCustomerOrders } from "../controllers/getAllOrders.js";
 import { setRatingFeedback } from "../controllers/setRatingFeedback.js";
 import { getFeedbacks } from "../controllers/getFeedbacks.js";
 import { getAllFeedbacks } from "../controllers/getAllFeedbacks.js";
@@ -31,54 +31,52 @@ import { decrement } from "../controllers/decrement.js";
 import { removeCartItem } from "../controllers/removeCartItem.js";
 import { getOwnerOrders } from "../controllers/owner/getOwnerOrders.js";
 import { updateOrderStatus } from "../controllers/owner/updateOrderStatus.js";
+import { getAllUsers } from "../controllers/admin/getAllUsers.js";
+import { getAllOrders } from "../controllers/admin/getAllOrders.js";
+import { updateUserRole } from "../controllers/admin/updateUserRole.js";
+import { deleteUser } from "../controllers/admin/deleteUser.js";
 
 const router = express.Router();
 
 router.get("/test", (req, res) => {
   res.send("everything works fine");
 });
-
-router.get("/nearby", getNearbyRestaurants);
-
-router.post("/register", register);
-router.post("/login", login);
-
 router.post(
   "/addRestaurant",
   restaurantUploader.single("img"),
   tokenVerifier,
   addRestaurant
 );
-router.post("/addFood", foodUploader.single("img"), tokenVerifier, addFood);
-
 router.put(
   "/updateRestaurant/:id",
   tokenVerifier,
   restaurantUpdator.single("img"),
   updateRestaurant
 );
-
 router.put(
   "/updateFoodItem/:id",
   tokenVerifier,
   foodUpdator.single("img"),
   updateFoodItem
 );
-
+router.get("/nearby", getNearbyRestaurants);
+router.post("/register", register);
+router.post("/login", login);
+router.post("/addFood", foodUploader.single("img"), tokenVerifier, addFood);
 router.get("/getFoodItem/:id", tokenVerifier, getFoodItem);
-
 router.get("/getAllFoods", getAllFoods);
 router.post("/addToOrder", tokenVerifier, addToOrder);
 router.get("/getCartItems", tokenVerifier, getCartItems);
 router.post("/placeOrder", tokenVerifier, placeOrder);
-router.get("/getAllOrders", tokenVerifier, getAllOrders);
+router.get("/getCustomerOrders", tokenVerifier, getCustomerOrders);
 router.post("/ratingFeedback/:id", tokenVerifier, setRatingFeedback);
-
 router.get("/getOwnerOrders", tokenVerifier, getOwnerOrders);
 router.put("/updateOrderStatus/:id", tokenVerifier, updateOrderStatus);
-
+router.get("/getAllUsers", tokenVerifier, getAllUsers);
+router.get("/getAllOrder", tokenVerifier, getAllOrders);
+router.put("/updateUserRole/:id", tokenVerifier, updateUserRole);
+router.delete("/deleteUser/:id", tokenVerifier, deleteUser);
 router.get("/getRestaurant", tokenVerifier, getRestautants);
-
 router.get("/getFoods/:restaurantId", tokenVerifier, getFoods);
 router.delete("/deleteRestaurant", tokenVerifier, deleteRestaurant);
 router.get("/getSingleRes/:id", tokenVerifier, singleRestaurant);
@@ -87,12 +85,11 @@ router.get("/getAllFeedbacks", getAllFeedbacks);
 router.put("/increment/:id", tokenVerifier, increment);
 router.put("/decrement/:id", tokenVerifier, decrement);
 router.delete("/removeCartItem/:id", tokenVerifier, removeCartItem);
-
+router.get("/getAllRestaurants", tokenVerifier, allRestaurants);
 router.post(
   "/updateRestaurantStatus/:id",
   tokenVerifier,
   updateRestaurantStatus
 );
-router.get("/getAllRestaurants", tokenVerifier, allRestaurants);
 
 export default router;

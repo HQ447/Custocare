@@ -1,6 +1,6 @@
 import Order from "../models/Order.js";
 
-export const getAllOrders = async (req, res) => {
+export const getCustomerOrders = async (req, res) => {
   const id = req.user.id;
   console.log(id);
   try {

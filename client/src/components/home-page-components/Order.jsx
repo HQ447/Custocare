@@ -10,7 +10,7 @@ function Order() {
   const fetchAllOrders = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${domain}/getAllOrders`, {
+      const res = await fetch(`${domain}/getCustomerOrders`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
