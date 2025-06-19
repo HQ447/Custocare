@@ -272,6 +272,40 @@ function RestaurantDetails() {
     }
   }
 
+  const handleDeleteFood = async (id) => {
+    try {
+      const res = await fetch(`${domain}/deleteFoodItem/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        fetchFoods();
+      }
+    } catch (error) {
+      console.log("error in deleting food", error);
+    }
+  };
+
+  const handleDeleteRestaurant = async (id) => {
+    try {
+      const res = await fetch(`${domain}/deleteRestaurant/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        navigate("/owner-dashboard");
+      }
+    } catch (error) {
+      console.log("error in deleting restaurant", error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
       {/* Hero Section */}
@@ -312,7 +346,10 @@ function RestaurantDetails() {
               >
                 ✏️ Update Restaurant
               </button>
-              <button className="px-6 py-3 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+              <button
+                onClick={() => handleDeleteRestaurant(restaurant._id)}
+                className="px-6 py-3 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
                 🗑️ Delete Restaurant
               </button>
             </div>
@@ -392,7 +429,10 @@ function RestaurantDetails() {
                       >
                         ✏️ Edit
                       </button>
-                      <button className="px-3 py-1 rounded-lg bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition-colors">
+                      <button
+                        onClick={() => handleDeleteFood(item._id)}
+                        className="px-3 py-1 rounded-lg bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition-colors"
+                      >
                         🗑️ Delete
                       </button>
                     </div>

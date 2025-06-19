@@ -77,7 +77,7 @@ const ManageRestaurants = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="  bg-gradient-to-br from-amber-50 via-white to-indigo-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-8">
@@ -93,7 +93,7 @@ const ManageRestaurants = () => {
       </div>
 
       {/* All Restaurants Section */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
+      <div className="  p-10">
         <div className="mb-12">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -104,8 +104,8 @@ const ManageRestaurants = () => {
                 Manage and view all your restaurant locations
               </p>
             </div>
-            <div className="bg-blue-100 px-4 py-2 rounded-full">
-              <span className="text-blue-700 font-semibold">
+            <div className="bg-amber-300 px-4 py-2 rounded-full">
+              <span className="text-white font-semibold">
                 {restaurants.length} Restaurant
                 {restaurants.length !== 1 ? "s" : ""}
               </span>
@@ -164,7 +164,7 @@ const ManageRestaurants = () => {
                     ) : (
                       <button
                         onClick={() => navigate(`detail/${restaurant._id}`)}
-                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
+                        className="w-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-700 hover:to-amber-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
                       >
                         View Details →
                       </button>

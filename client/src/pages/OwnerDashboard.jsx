@@ -7,7 +7,7 @@ function OwnerDashboard() {
     <div className="flex w-full h-screen">
       <Sidebar />
 
-      <div className="w-[78%] max-h-screen overflow-y-auto p-10">
+      <div className="w-[78%] max-h-screen overflow-y-auto ">
         <Outlet />
       </div>
     </div>

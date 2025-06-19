@@ -35,6 +35,7 @@ import { getAllUsers } from "../controllers/admin/getAllUsers.js";
 import { getAllOrders } from "../controllers/admin/getAllOrders.js";
 import { updateUserRole } from "../controllers/admin/updateUserRole.js";
 import { deleteUser } from "../controllers/admin/deleteUser.js";
+import { deleteFood } from "../controllers/owner/deleteFood.js";
 
 const router = express.Router();
 
@@ -78,7 +79,8 @@ router.put("/updateUserRole/:id", tokenVerifier, updateUserRole);
 router.delete("/deleteUser/:id", tokenVerifier, deleteUser);
 router.get("/getRestaurant", tokenVerifier, getRestautants);
 router.get("/getFoods/:restaurantId", tokenVerifier, getFoods);
-router.delete("/deleteRestaurant", tokenVerifier, deleteRestaurant);
+router.delete("/deleteRestaurant/:id", tokenVerifier, deleteRestaurant);
+router.delete("/deleteFoodItem/:id", tokenVerifier, deleteFood);
 router.get("/getSingleRes/:id", tokenVerifier, singleRestaurant);
 router.get("/getFeedbacks/:id", tokenVerifier, getFeedbacks);
 router.get("/getAllFeedbacks", getAllFeedbacks);

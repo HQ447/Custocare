@@ -3,9 +3,8 @@ import Restaurant from "../../models/Restaurant.js";
 export const deleteRestaurant = async (req, res) => {
   try {
     const { id } = req.params;
-    const ownerId = req.user._id;
 
-    const restaurant = await Restaurant.findOne({ _id: id, ownerId });
+    const restaurant = await Restaurant.findById(id);
 
     if (!restaurant) {
       return res
