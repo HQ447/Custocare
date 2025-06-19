@@ -4,32 +4,53 @@ function ManageOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const domain = "http://localhost:8000/app"; // Change this to your API base URL
+  const token = localStorage.getItem("token");
+  const [status, setstatus] = useState("");
+
+  const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem("token"); // update key if different
+
+      const res = await fetch(`${domain}/getOwnerOrders`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setOrders(data.orders);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateOrderStatus = async (id) => {
+    try {
+      const res = await fetch(`${domain}/updateOrderStatus/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(status),
+      });
+
+      if (res.ok) {
+        alert("status updated");
+        fetchOrders();
+      }
+    } catch (error) {
+      console.log("error in order status updating", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const token = localStorage.getItem("token"); // update key if different
-
-        const res = await fetch(`${domain}/getOwnerOrders`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-          setOrders(data.orders);
-        } else {
-          console.error(data.message);
-        }
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchOrders();
   }, []);
 
@@ -258,6 +279,26 @@ function ManageOrders() {
                       </div>
                     ))}
                   </div>
+                </div>
+                <div className="flex gap-3 justify-end items-center mt-3 ">
+                  <select
+                    name=""
+                    id=""
+                    onChange={(e) => setstatus(e.target.value)}
+                    className="py-2 px-5 border rounded-sm "
+                  >
+                    <option>Update Order Status</option>
+                    <option value="Not Available">Not Available</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                  <button
+                    onClick={() => updateOrderStatus(order._id)}
+                    className={` ${
+                      !status ? " hidden " : ""
+                    } px-4 py-2 bg-yellow-500 text-white rounded-sm font-bold`}
+                  >
+                    Update
+                  </button>
                 </div>
               </div>
             </div>
