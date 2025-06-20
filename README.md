@@ -64,6 +64,7 @@ A robust full-stack MERN food delivery platform where restaurant owners can mana
 ---
 
 ## 📁 UI Design
+
 ![Screenshot (615)](https://github.com/user-attachments/assets/bcb30092-ba2c-4d1f-8efa-a7107a943495)
 
 ![Screenshot (616)](https://github.com/user-attachments/assets/8262e651-b04c-4740-a44b-a5413a7e9038)
@@ -89,3 +90,11 @@ A robust full-stack MERN food delivery platform where restaurant owners can mana
 ![Screenshot (626)](https://github.com/user-attachments/assets/aca2a94f-c410-4f77-9276-20d2c868cb29)
 
 ![Screenshot (627)](https://github.com/user-attachments/assets/21146b32-9607-4d09-b8c2-0878a5092fdd)
+
+![Screenshot (629)](https://github.com/user-attachments/assets/8a2f53a3-827a-45a9-988f-e76ef714bfd2)
+
+![Screenshot (630)](https://github.com/user-attachments/assets/2ded48d0-fbaf-47a2-b641-6e923fed5144)
+
+![Screenshot (632)](https://github.com/user-attachments/assets/0714a347-c097-4a4b-a27d-866fe5ed339d)
+
+![Screenshot (631)](https://github.com/user-attachments/assets/9e93dc11-2339-4b50-b672-8e800ac4116b)

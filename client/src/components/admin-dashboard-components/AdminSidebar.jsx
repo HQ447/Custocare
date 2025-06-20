@@ -107,7 +107,7 @@ function AdminSidebar() {
             <UtensilsCrossed className="w-7 h-7 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-800">FoodAdmin</h2>
+            <h2 className="text-xl font-bold text-gray-800">Admin</h2>
             <p className="text-sm text-gray-500">Dashboard Panel</p>
           </div>
         </div>
