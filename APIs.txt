@@ -1,0 +1,48 @@
+BASE: "http://localhost:8000/app"
+
+POST -----> "/register" {name , email , password}
+POST -----> "/login" {email, password}
+
+***customer-side***
+
+POST ----> "/addToOrder" {_id,foodName,restaurantId, category,img, description, oldPrice,newPrice,}
+PUT  ----> "/increment/:id"
+PUT  ----> "/decrement/:id"
+DELETE --> "/removeCartItem/:id"
+GET -------> "/getSingleRes/:id"
+menu of each restaurants : GET--> "/getFoods/:restaurantId"
+GET ----> "/getCartItems"
+POST ---> "/placeOrder" { fullName, phone, address, total, paymentMethod }
+GET ----> "/getCustomerOrders"
+POST ---> "/ratingFeedback/:id" {rating , feedback}
+
+GET Nearest Restaurants
+GET ----> "/nearby"
+
+**owner**
+
+
+POST -----> "/addRestaurant" {img, restaurantName, description, address , coordinates}
+PUT  -----> "/updateRestaurant/:id"  { restaurantName, description, address, coordinates , img}
+GET  -----> "/getOwnerOrders"
+owner all restaurants : GET --> "/getRestaurant"
+PUT  -----> "/updateOrderStatus/:id"
+DELETE ----> "/deleteRestaurant/:id"
+DELETE ----> "/deleteFoodItem/:id"
+feedback of each restaurant GET ---> "/getFeedbacks/:id"
+POST ----> "/addFood"  { img,foodName, description, oldPrice, newPrice, restaurantId }
+PUT -----> "/updateFoodItem/:id" { img,foodName, category, description, oldPrice, newPrice }
+GET -----> "/getFoodItem/:id"
+
+
+**admin**
+
+PUT ------> "/updateUserRole/:id" {role}
+GET ------> "/getAllUsers"
+GET ------> "/getAllOrder"
+DELETE ---> "/deleteUser/:id"
+GET ------> "/admin/analytics"
+GET ----> "/getAllFeedbacks"
+GET -----> "/getAllRestaurants"
+POST ----> "/updateRestaurantStatus/:id" {status}
+GET ----> "/getAllFoods"

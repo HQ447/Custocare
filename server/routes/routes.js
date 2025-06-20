@@ -40,9 +40,6 @@ import { getAdminAnalytics } from "../controllers/admin/getAdminAnalytics.js";
 
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  res.send("everything works fine");
-});
 router.post(
   "/addRestaurant",
   restaurantUploader.single("img"),
