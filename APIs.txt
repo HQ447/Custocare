@@ -19,8 +19,7 @@ POST ---> "/ratingFeedback/:id" {rating , feedback}
 GET Nearest Restaurants
 GET ----> "/nearby"
 
-**owner**
-
+**own
 
 POST -----> "/addRestaurant" {img, restaurantName, description, address , coordinates}
 PUT  -----> "/updateRestaurant/:id"  { restaurantName, description, address, coordinates , img}
