@@ -19,6 +19,7 @@ const LocationPicker = ({ setCoordinates }) => {
   return null;
 };
 
+//set map center
 const SetMapCenter = ({ coordinates }) => {
   const map = useMap();
   useEffect(() => {
