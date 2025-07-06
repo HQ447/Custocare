@@ -57,9 +57,7 @@ const Login = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mb-4 shadow-lg">
             <ChefHat className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">
-            FoodieExpress
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Custocare</h1>
           <p className="text-gray-600 text-sm">
             Delicious food at your doorstep
           </p>

@@ -63,6 +63,14 @@ A robust full-stack MERN food delivery platform where restaurant owners can mana
 
 ---
 
+## Demo Account
+
+Customer: user@gmail.com , Password : useruser
+Owner : user2@gmail.com , Password: useruser
+Admin: user3@gmail.com , Passsword: useruser
+
+---
+
 ## 📁 UI Design
 
 ![Screenshot (615)](https://github.com/user-attachments/assets/bcb30092-ba2c-4d1f-8efa-a7107a943495)

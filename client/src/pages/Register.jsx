@@ -55,9 +55,7 @@ const Register = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full mb-4 shadow-lg">
             <ChefHat className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">
-            FoodieExpress
-          </h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Custocare</h1>
           <p className="text-gray-600 text-sm">
             Join thousands of food lovers!
           </p>
