@@ -7,6 +7,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 
 function Navbar() {
+  const testName = import.meta.env.VITE_TEST;
   const navigate = useNavigate();
   //const [userLocation, setUserLocation] = useState(null);
   const [address, setAddress] = useState("");

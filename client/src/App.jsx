@@ -45,7 +45,6 @@ function App() {
             <Route path="manageRestaurants" element={<Restaurants />} />
             <Route path="users" element={<ManageUsers />} />
             <Route path="orders" element={<OrderManagement />} />
-
             <Route path="settings" element={<Settings />} />
           </Route>
 
