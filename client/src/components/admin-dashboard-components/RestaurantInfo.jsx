@@ -7,6 +7,7 @@ function RestaurantInfo() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
    const token = localStorage.getItem("token");
+   const ali=2;
 
    const domain = `${import.meta.env.VITE_BASE_URL}app`;
   useEffect(() => {
