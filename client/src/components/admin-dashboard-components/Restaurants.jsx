@@ -19,7 +19,7 @@ function Restaurants() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [loading, setLoading] = useState(true);
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
 
   const fetchRestaurants = async () => {
     const token = localStorage.getItem("token");
@@ -62,7 +62,6 @@ function Restaurants() {
         body: JSON.stringify({ status }),
       });
 
-      const data = await res.json();
       if (res.ok) {
         fetchRestaurants(); // Refresh list
         setStatus(""); // Reset status selection

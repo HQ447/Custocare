@@ -24,7 +24,7 @@ function OrderManagement() {
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
   const token = localStorage.getItem("token");
 
   const fetchOrders = async () => {

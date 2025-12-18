@@ -44,7 +44,7 @@ const ManageFoods = () => {
   });
   const [imagePreview1, setImagePreview1] = useState(null);
 
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
 
   // fetch restaurant list for dropdown
   const [restaurants, setRestaurants] = useState([]);

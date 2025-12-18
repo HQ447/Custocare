@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function RestaurantDetails() {
   const { id } = useParams();
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
   const token = localStorage.getItem("token");
   const [restaurant, setRestaurant] = useState(null);
   const [foods, setFoods] = useState([]);

@@ -3,7 +3,7 @@ import { Leaf, Utensils, ShoppingCart, Star, Rss } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function Foods() {
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
   const [foods, setFoods] = useState([]);

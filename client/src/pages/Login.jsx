@@ -3,8 +3,8 @@ import { Mail, Lock, ChefHat, Utensils } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const domain = "http://localhost:8000/app";
-  const navigate = useNavigate(); // Uncomment when using in your app
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
+  const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {

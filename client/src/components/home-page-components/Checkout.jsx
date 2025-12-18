@@ -11,7 +11,7 @@ function Checkout() {
     paymentMethod: "cod",
   });
   const [loading, setLoading] = useState(false);
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 

@@ -5,7 +5,7 @@ function ManageOrders() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
 
-  const domain = "http://localhost:8000/app"; // Change this to your API base URL
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
   const token = localStorage.getItem("token");
   const [status, setstatus] = useState("");
 

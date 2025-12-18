@@ -37,8 +37,6 @@ function App() {
             <Route path="order" element={<Order />} />
             <Route path="fav" element={<Fav />} />
           </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
 
           <Route path="/admin-dashboard" element={<AdminDashboard />}>
             <Route index element={<Analytics />} />
@@ -56,6 +54,9 @@ function App() {
             <Route path="updateRestaurant/:id" element={<UpdateRestaurant />} />
             <Route path="updateFood/:id" element={<UpdateFood />} />
           </Route>
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </div>

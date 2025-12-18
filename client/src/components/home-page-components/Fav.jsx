@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 function Fav() {
   const [cartItems, setCartItems] = useState([]);
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 

@@ -18,7 +18,7 @@ export const getNearbyRestaurants = async (req, res) => {
             type: "Point",
             coordinates: [parseFloat(longitude), parseFloat(latitude)],
           },
-          $maxDistance: 10000, // 1km
+          $maxDistance: 10000, // 10km
         },
       },
       status: "Approved", // Optional: Only show approved restaurants

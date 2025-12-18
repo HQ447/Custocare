@@ -16,7 +16,7 @@ const NearbyRestaurants = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
   const navigate = useNavigate();
-
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -33,7 +33,7 @@ const NearbyRestaurants = () => {
   const fetchNearbyRestaurants = async (lng, lat) => {
     try {
       const res = await fetch(
-        `http://localhost:8000/app/nearby?longitude=${lng}&latitude=${lat}`
+        `${domain}/nearby?longitude=${lng}&latitude=${lat}`
       );
       const data = await res.json();
       if (data.success) {

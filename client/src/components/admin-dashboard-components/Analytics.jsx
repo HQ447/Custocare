@@ -17,7 +17,7 @@ import {
 function Analytics() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
-  const domain = "http://localhost:8000/app"; // or your live backend
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
 
   useEffect(() => {
     const fetchData = async () => {

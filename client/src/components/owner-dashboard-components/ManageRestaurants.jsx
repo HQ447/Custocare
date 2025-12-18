@@ -31,7 +31,7 @@ const SetMapCenter = ({ coordinates }) => {
 const ManageRestaurants = () => {
   const [restaurants, setRestaurants] = useState([]);
   const navigate = useNavigate();
-  const domain = "http://localhost:8000/app";
+  const domain = `${import.meta.env.VITE_BASE_URL}app`;
 
   const [loading, setLoading] = useState(false);
 
