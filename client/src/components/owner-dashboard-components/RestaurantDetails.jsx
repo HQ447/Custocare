@@ -342,15 +342,15 @@ function RestaurantDetails() {
                 onClick={() =>
                   navigate(`/owner-dashboard/updateRestaurant/${id}`)
                 }
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                className="md:px-6 px-4 py-2 md:py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
-                ✏️ Update Restaurant
+                ✏️ Update 
               </button>
               <button
                 onClick={() => handleDeleteRestaurant(restaurant._id)}
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                className="md:px-6 px-4 py-2 md:py-3 rounded-lg bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
-                🗑️ Delete Restaurant
+                🗑️ Delete 
               </button>
             </div>
           </div>

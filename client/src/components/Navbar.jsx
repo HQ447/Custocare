@@ -77,7 +77,7 @@ function Navbar() {
 }
 
         <div className="flex text-sm items-center gap-3">
-          <h1>{name ? name : "Guest"}</h1>
+         
 
           {role && (
             <div>
@@ -97,7 +97,7 @@ function Navbar() {
                   onClick={() => navigate("/owner-dashboard")}
                   className="bg-violet-600 hover:scale-95 transition-all hover:bg-violet-500 px-4 py-2 rounded-md text-white font-semibold"
                 >
-                  Owner Dashboard
+                  {name}
                 </button>
               ) : (
                 <button

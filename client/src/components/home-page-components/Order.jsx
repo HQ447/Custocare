@@ -109,11 +109,11 @@ function Order() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 px-20 ">
+    <div className="min-h-screen bg-gray-50 pt-22 px-4 md:px-20 ">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">My Orders</h1>
-          <p className="text-gray-600">
+        <div className="mb-4 md:mb-8">
+          <h1 className="text-xl md:text-3xl font-bold text-gray-800 mb-1 md:mb-2">My Orders</h1>
+          <p className="text-gray-600 text-sm">
             Track and manage all your food delivery orders
           </p>
         </div>
@@ -212,7 +212,7 @@ function Order() {
                 </div>
 
                 {/* Order Items */}
-                <div className="px-6 py-4">
+                <div className="md:px-6 px-4 py-4 md:py-4">
                   <h4 className="font-medium text-gray-800 mb-3">
                     Order Items
                   </h4>
@@ -228,7 +228,7 @@ function Order() {
                             <img
                               src={item.img}
                               alt={item.foodName}
-                              className="w-16 h-16 object-cover rounded-lg"
+                              className="md:w-16 w-14 h-14 md:h-16 object-cover rounded-lg"
                               onError={(e) => {
                                 e.target.style.display = "none";
                               }}
@@ -257,7 +257,7 @@ function Order() {
                           <h5 className="font-medium text-gray-800">
                             {item.foodName}
                           </h5>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs md:text-sm text-gray-600">
                             Quantity: {item.qty} × ${item.price?.toFixed(2)}
                           </p>
                         </div>
