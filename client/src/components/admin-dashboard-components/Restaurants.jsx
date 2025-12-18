@@ -12,6 +12,8 @@ import {
   Edit3,
   Image,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 function Restaurants() {
   const [status, setStatus] = useState("");
@@ -20,6 +22,7 @@ function Restaurants() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const domain = `${import.meta.env.VITE_BASE_URL}app`;
+  const navigate=useNavigate()
 
   const fetchRestaurants = async () => {
     const token = localStorage.getItem("token");
@@ -293,6 +296,7 @@ function Restaurants() {
               <div
                 key={rest._id}
                 className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-all duration-300"
+                onClick={()=>navigate(`/admin-dashboard/restaurant-details/${rest._id}`)}
               >
                 <div className="p-6">
                   <div className="flex flex-col lg:flex-row gap-6">

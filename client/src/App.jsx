@@ -22,6 +22,7 @@ import RestaurantDetail from "./components/home-page-components/RestaurantDetail
 import Checkout from "./components/home-page-components/Checkout";
 import Order from "./components/home-page-components/Order";
 import Fav from "./components/home-page-components/Fav";
+import RestaurantInfo from "./components/admin-dashboard-components/RestaurantInfo";
 
 function App() {
   return (
@@ -41,9 +42,11 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />}>
             <Route index element={<Analytics />} />
             <Route path="manageRestaurants" element={<Restaurants />} />
+            <Route path="restaurant-details/:id" element={<RestaurantInfo />} />
             <Route path="users" element={<ManageUsers />} />
             <Route path="orders" element={<OrderManagement />} />
             <Route path="settings" element={<Settings />} />
+
           </Route>
 
           <Route path="/owner-dashboard" element={<OwnerDashboard />}>
