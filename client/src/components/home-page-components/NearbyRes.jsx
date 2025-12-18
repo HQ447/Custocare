@@ -52,8 +52,8 @@ const NearbyRestaurants = () => {
   }
 
   return (
-    <div className="bg-gray-50 py-8 sm:py-12 px-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-50 px-3  py-8 sm:py-12 md:px-12">
+      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
@@ -66,7 +66,7 @@ const NearbyRestaurants = () => {
 
         {/* Map Section */}
         {userLocation && (
-          <div className="mb-8 sm:mb-12">
+          <div className="mb-8 sm:mb-12 ">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
               <div className="p-3 sm:p-4 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-200">
                 <h3 className="text-sm sm:text-base font-medium text-gray-800">

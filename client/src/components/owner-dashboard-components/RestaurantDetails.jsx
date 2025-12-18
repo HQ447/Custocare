@@ -200,7 +200,7 @@ function RestaurantDetails() {
       <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-orange-500 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-xl text-gray-700 font-medium">
+          <p className="text-lg md:text-xl text-gray-700 font-medium">
             Loading delicious content...
           </p>
         </div>
@@ -213,7 +213,7 @@ function RestaurantDetails() {
       <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center">
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
           <div className="text-6xl mb-4">🔍</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          <h2 className="text-lg md:text-2xl font-bold text-gray-800 mb-2">
             Restaurant Not Found
           </h2>
           <p className="text-gray-600">
@@ -314,11 +314,11 @@ function RestaurantDetails() {
         <img
           src={restaurant.img}
           alt={restaurant.restaurantName}
-          className="w-full h-96 object-cover"
+          className="w-full h-72 sm:h-80 md:h-96 object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute top-10 inset-0 flex items-center justify-center">
           <div className="text-center text-white">
-            <h1 className="text-5xl font-bold mb-4 drop-shadow-lg">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
               🍴 {restaurant.restaurantName}
             </h1>
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -361,11 +361,11 @@ function RestaurantDetails() {
           <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-center mb-3">
               <span className="text-2xl mr-3">📝</span>
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="sm:text-lg font-semibold text-gray-800">
                 Description
               </h3>
             </div>
-            <p className="text-white-600 leading-relaxed">
+            <p className="text-sm text-white-600 leading-relaxed">
               {restaurant.description}
             </p>
           </div>
@@ -386,27 +386,27 @@ function RestaurantDetails() {
           <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="flex items-center mb-3">
               <span className="text-2xl mr-3">
-                {restaurant.status === "open" ? "🟢" : "🔴"}
+                {restaurant.status === "Approved" ? "🟢" : "🔴"}
               </span>
               <h3 className="text-lg font-semibold text-gray-800">Status</h3>
             </div>
             <span
               className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
-                restaurant.status === "open"
+                restaurant.status === "Approved"
                   ? "bg-green-100 text-green-800"
                   : "bg-red-100 text-red-800"
               }`}
             >
-              {restaurant.status === "open" ? "Open Now" : "Closed"}
+              {restaurant.status === "Approved" ? "Open Now" : "Closed"}
             </span>
           </div>
         </div>
 
         {/* Menu Section */}
         {foods.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-white rounded-2xl shadow-xl p-4 md:p-8">
             <div className="text-center mb-8">
-              <h2 className="text-4xl font-bold text-gray-800 mb-2">
+              <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
                 🍽️ Our Menu
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-amber-400 mx-auto rounded-full"></div>
@@ -447,7 +447,7 @@ function RestaurantDetails() {
                       />
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-1">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2 line-clamp-1">
                       {item.foodName}
                     </h3>
                     <p className="text-gray-600 text-justify line-clamp-3 text-sm mb-4 leading-relaxed">
@@ -456,11 +456,11 @@ function RestaurantDetails() {
 
                     <div className="flex   gap-3 mb-4">
                       {item.oldPrice && (
-                        <span className="text-gray-500 line-through text-lg">
+                        <span className="text-gray-500 line-through text-sm md:text-lg">
                           ${item.oldPrice}
                         </span>
                       )}
-                      <span className="text-2xl font-bold text-orange-600">
+                      <span className="text-xl md:text-2xl font-bold text-orange-600">
                         ${item.newPrice}
                       </span>
                     </div>
@@ -468,7 +468,7 @@ function RestaurantDetails() {
                     {role === "customer" && (
                       <button
                         onClick={() => handleAdd(item)}
-                        className="w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold hover:from-orange-600 hover:to-amber-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                        className="w-full py-2 md:py-3 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold hover:from-orange-600 hover:to-amber-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                       >
                         🛒 Add
                       </button>
@@ -483,7 +483,7 @@ function RestaurantDetails() {
         {foods.length === 0 && (
           <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
             <div className="text-6xl mb-4">🍽️</div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
               Menu Coming Soon
             </h3>
             <p className="text-gray-600">
@@ -494,9 +494,9 @@ function RestaurantDetails() {
         )}
 
         {/* Feedback Section - Only show for customers */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mt-10">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl font-bold text-gray-800 mb-2">
+        <div className="bg-white rounded-2xl shadow-xl p-4 md:p-8 mt-10">
+          <div className="text-center mb-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
               💬 Feedback
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-amber-400 mx-auto rounded-full"></div>
@@ -505,13 +505,13 @@ function RestaurantDetails() {
             <div className="space-y-4">
               {/* Rating Stars */}
               <div className="flex flex-col items-center gap-2">
-                <label className="text-lg font-semibold text-gray-700">
+                <label className="text-sm md:text-lg font-semibold text-gray-700">
                   Rate your experience:
                 </label>
                 <StarRating
                   rating={currentRating}
                   onRatingChange={handleRatingChange}
-                  size={32}
+                  size={30}
                   editable={true}
                 />
                 {currentRating > 0 && (
@@ -529,14 +529,14 @@ function RestaurantDetails() {
                   value={feedbackText}
                   onChange={(e) => setFeedbackText(e.target.value)}
                   required
-                  className="py-3 w-full outline-none bg-gray-100 rounded-full px-10"
+                  className="py-1 placeholder:text-sm md:py-3 w-full outline-none bg-gray-100 rounded-full px-5 md:px-10"
                 />
                 <button
                   onClick={handleSubmitFeedback}
                   disabled={
                     isSubmitting || !currentRating || !feedbackText.trim()
                   }
-                  className={`py-3 px-6 text-white rounded-full transition-all duration-200 ${
+                  className={`py-1 text-sm md:py-3 px-6 text-white rounded-full transition-all duration-200 ${
                     isSubmitting || !currentRating || !feedbackText.trim()
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-amber-600 hover:bg-amber-700 hover:shadow-lg"
@@ -549,23 +549,23 @@ function RestaurantDetails() {
           )}
           <div>
             {feedbacks.length > 0 ? (
-              <div className="mt-4">
+              <div className="mt-4 flex flex-col gap-4">
                 {feedbacks.map((feedback) => (
-                  <div key={feedback._id} className="flex flex-col gap-2">
-                    <div className="flex justify-between">
-                      <div className="flex gap-4 items-center ">
+                  <div key={feedback._id} className="flex p-5 flex-col gap-2 shadow">
+                    <div className="flex justify-between items-center">
+                      <div className="flex gap-2 md:gap-4 items-center ">
                         <img
                           src={feedback.img}
                           alt=""
-                          className="h-10 w-10 rounded-full object-cover"
+                          className="h-8 w-8 md:h-10 md:w-10 rounded-full object-cover"
                         />
                         <h1 className="font-semibold">{feedback.name}</h1>
                       </div>
-                      <p>{new Date(feedback.createdAt).toLocaleString()}</p>
+                      <p className="text-sm">{new Date(feedback.createdAt).toLocaleString()}</p>
                     </div>
 
-                    <h1>{feedback.feedback}</h1>
-                    <br />
+                    <h1 className="text-sm md:text-lg">{feedback.feedback}</h1>
+               
                   </div>
                 ))}
               </div>

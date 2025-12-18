@@ -56,25 +56,27 @@ function Navbar() {
   }, [navigate]);
 
   return (
-    <div className="fixed top-0 w-full z-10 bg-white px-20 py-3 shadow">
+    <div className="fixed top-0 w-full z-10 bg-white px-4 md:px-20 py-3 shadow">
       <div className="flex justify-between ">
         <div
           className="flex flex-col cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <h1 className="text-2xl font-bold">Custocare</h1>
-          <p className="text-xs text-gray-700 self-end">Pakistan</p>
+          <h1 className=" text-xl md:text-2xl font-bold">Custocare</h1>
+          <p className="text-[10px] md:text-xs text-gray-700 self-end">Pakistan</p>
         </div>
 
+{!role &&
         <div className="location flex items-center gap-2 w-1/3">
           <FaLocationDot className="text-2xl text-red-500" />
 
-          <p className="text-sm text-gray-600 truncate">
+          <p className="text-xs md:text-sm text-gray-600 truncate">
             {address || "Fetching location..."}
           </p>
         </div>
+}
 
-        <div className="flex items-center gap-3">
+        <div className="flex text-sm items-center gap-3">
           <h1>{name ? name : "Guest"}</h1>
 
           {role && (
@@ -111,7 +113,7 @@ function Navbar() {
           {!role ? (
             <button
               onClick={() => navigate("/login")}
-              className="bg-amber-400 hover:scale-95 transition-all hover:bg-amber-500 px-4 py-2 rounded-md text-white font-semibold"
+              className="bg-amber-400 hover:scale-95 transition-all hover:bg-amber-500 px-2 py-1  md:px-4 md:py-2 text-sm rounded-md text-white font-semibold"
             >
               Login
             </button>

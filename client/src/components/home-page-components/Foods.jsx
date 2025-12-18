@@ -59,7 +59,7 @@ function Foods() {
   const filteredFoods = foods.filter((food) => food.category === category);
 
   return (
-    <div className="bg-white py-8 sm:py-12 px-12">
+    <div className="bg-white px-6 py-8 sm:py-12 md:px-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-6 sm:mb-8">
